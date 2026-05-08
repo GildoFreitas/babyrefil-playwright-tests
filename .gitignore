@@ -1,14 +1,44 @@
+# =========================
+# Python
+# =========================
 venv/
 __pycache__/
 .pytest_cache/
+*.pyc
 
-playwright-report/
-test-results/
-
-reports/
-screenshots/
-
+# =========================
+# Environment Variables
+# =========================
 .env
 
-*.pyc
+# =========================
+# Logs
+# =========================
 *.log
+
+# =========================
+# Playwright Reports
+# =========================
+playwright-report/
+test-results/
+reports/
+
+# =========================
+# Screenshots & Evidences
+# =========================
+screenshots/
+page-*.png
+page-*.jpg
+page-*.jpeg
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db

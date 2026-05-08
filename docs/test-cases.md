@@ -70,28 +70,19 @@ Validar o fluxo completo de assinatura com sucesso utilizando dados válidos.
 
 ### Massa de Dados
 
-| Campo | Valor |
-| --- | --- |
-| Plano | Essencial |
-| Recorrência | Mensal |
-| Nome Completo | João da Silva |
-| Email | joao.silva@email.com |
-| Telefone | 11999999999 |
-| Nome do Bebê | Miguel |
-| Idade do Bebê | 6 meses |
-| CEP | 04534-011 |
-| Cartão | 4242424242424242 |
-
 | Passo | Ação | Resultado Esperado |
 | --- | --- | --- |
-| 1 | Clicar no botão "Assinar Agora". | O usuário deve ser direcionado para a etapa de seleção de plano. |
+| 1 | Clicar no botão "Assinar Agora". | O usuário deve ser direcionado para a etapa de seleção de plano. Deve exibir os planos **Essencial, Conforto e Completo.** |
 | 2 | Selecionar um plano disponível. | O usuário deve avançar para seleção de recorrência. |
 | 3 | Selecionar uma recorrência e avançar. | O sistema deve atualizar os valores corretamente e avançar o fluxo. |
 | 4 | Preencher todos os dados pessoais válidos. | O sistema deve permitir continuar o fluxo. |
 | 5 | Preencher endereço válido. | O sistema deve permitir continuar o fluxo. |
-| 6 | Preencher dados válidos do cartão. | O sistema deve aceitar os dados corretamente. |
+| 6 | Preencher todos os campos de pagamento com os dados do cartão **Válido (Visa)** da massa de dados.| O sistema deve aceitar os dados corretamente. |
 | 7 | Clicar em "Confirmar Pagamento". | O pagamento deve ser aprovado com sucesso. |
-| 8 | Validar tela de confirmação. | O sistema deve exibir confirmação da assinatura e número do pedido. |
+| 8 | Validar tela de confirmação. | 1. O pagamento é processado com sucesso.
+2. O usuário é redirecionado para a página de confirmação de assinatura.
+3. A página de confirmação exibe o resumo do plano e a data estimada de entrega.
+4. Deve ser exibido o numero do pedido no formato **BR1761410590280**.|
 
 ---
 
@@ -115,13 +106,13 @@ Validar o comportamento do sistema ao processar pagamento com saldo insuficiente
 
 | Passo | Ação | Resultado Esperado |
 | --- | --- | --- |
-| 1 | Iniciar fluxo de assinatura. | A tela de seleção de plano deve ser exibida. |
+| 1 | Iniciar fluxo de assinatura. | A tela de seleção de plano deve ser exibida. Deve exibir os planos **Essencial, Conforto e Completo.**|
 | 2 | Selecionar plano e recorrência. | O fluxo deve avançar corretamente. |
 | 3 | Preencher dados pessoais válidos. | O sistema deve permitir continuar. |
 | 4 | Preencher endereço válido. | O sistema deve permitir continuar. |
-| 5 | Informar cartão com saldo insuficiente. | Os dados devem ser aceitos para processamento. |
+| 5 | Preencher todos os campos de pagamento com os dados do cartão **Inválido (Saldo Insuf.)** da massa de dados.| Os dados devem ser aceitos para processamento. |
 | 6 | Clicar em "Confirmar Pagamento". | O pagamento deve ser recusado. |
-| 7 | Validar mensagem de erro. | Deve ser exibida mensagem informando falha de pagamento. |
+| 7 | Validar mensagem de erro. | Deve ser exibida a mensagem "**Transação não autorizada. Entre em contato com o emissor do cartão.**" informando falha de pagamento |
 | 8 | Validar permanência na tela de pagamento. | O usuário deve permanecer na etapa de pagamento. |
 
 ---
