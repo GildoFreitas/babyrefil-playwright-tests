@@ -20,35 +20,19 @@ Elementos dinâmicos:
 
 from __future__ import annotations
 
-import os
 import re
 
-from dotenv import load_dotenv
 from playwright.sync_api import Page, expect
-
-load_dotenv()
-
-
-def _base_url() -> str:
-    """URL base a partir do .env; falha cedo se ausente."""
-    url = (os.getenv("BASE_URL") or "").strip().rstrip("/")
-    if not url:
-        raise RuntimeError(
-            "Defina BASE_URL no arquivo .env (ex.: BASE_URL=https://babyrefil.vercel.app)"
-        )
-    return url
-
+from utils.navigation import open_homepage
 
 def test_ct004_planos_header_navigates_to_plans_section(page: Page):
     """
     Fluxo independente: home → clique em "Planos" no header → âncora #plans →
     valida título da seção e os três planos (Essencial, Conforto, Completo).
     """
-    base = _base_url()
 
     # Checkpoint: homepage carregada; URL coerente com BASE_URL antes do menu
-    page.goto(base)
-    expect(page).to_have_url(re.compile(re.escape(base) + r"/?$"))
+    open_homepage(page)
 
     # Garante que o alvo do clique existe e está acessível (interação dependente)
     planos_nav = page.get_by_role("link", name="Planos", exact=True)

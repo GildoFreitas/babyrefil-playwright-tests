@@ -21,38 +21,23 @@ Elementos dinâmicos:
 
 from __future__ import annotations
 
-import os
 import re
 
-from dotenv import load_dotenv
 from playwright.sync_api import Page, expect
-
-load_dotenv()
+from utils.navigation import open_homepage
+from utils.env import get_base_url
 
 _HEADER_SUBSCRIBE_LINK = "Assinar Agora"
-
-
-def _base_url() -> str:
-    """URL base a partir do .env; falha cedo se ausente."""
-    url = (os.getenv("BASE_URL") or "").strip().rstrip("/")
-    if not url:
-        raise RuntimeError(
-            "Defina BASE_URL no arquivo .env (ex.: BASE_URL=https://babyrefil.vercel.app)"
-        )
-    return url
-
 
 def test_ct006_header_assinar_agora_opens_subscribe_plan_step(page: Page):
     """
     Fluxo independente: home → link "Assinar Agora" apenas no banner → /subscribe →
     tela de escolha de plano com os três planos visíveis.
     """
-    base = _base_url()
-
+    base = get_base_url()
+    
     # Checkpoint: homepage
-    page.goto(base)
-    expect(page).to_have_url(re.compile(re.escape(base) + r"/?$"))
-    expect(page.get_by_role("banner")).to_be_visible()
+    open_homepage(page)
 
     # Alvo exclusivo do header (evita CTA duplicado no hero)
     banner = page.get_by_role("banner")

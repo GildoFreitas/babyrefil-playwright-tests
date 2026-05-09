@@ -22,37 +22,23 @@ Elementos dinâmicos:
 
 from __future__ import annotations
 
-import os
 import re
 
-from dotenv import load_dotenv
 from playwright.sync_api import Page, expect
-
-load_dotenv()
+from utils.navigation import open_homepage
+from utils.env import get_base_url
 
 _PLANS_SECTION_CTA = "Assinar agora"
-
-
-def _base_url() -> str:
-    """URL base a partir do .env; falha cedo se ausente."""
-    url = (os.getenv("BASE_URL") or "").strip().rstrip("/")
-    if not url:
-        raise RuntimeError(
-            "Defina BASE_URL no arquivo .env (ex.: BASE_URL=https://babyrefil.vercel.app)"
-        )
-    return url
-
 
 def test_ct007_planos_section_assinar_agora_opens_subscribe_flow(page: Page):
     """
     Home → seção Planos (nav) → CTA da seção de planos → /subscribe →
     planos + indicador da etapa Recorrência no fluxo.
     """
-    base = _base_url()
+    base = get_base_url()
 
     # Checkpoint: homepage
-    page.goto(base)
-    expect(page).to_have_url(re.compile(re.escape(base) + r"/?$"))
+    open_homepage(page)
 
     # Passo 2: navegar até a seção de planos (menu superior)
     planos_menu = page.get_by_role("link", name="Planos", exact=True)

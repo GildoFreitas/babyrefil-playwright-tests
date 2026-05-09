@@ -19,13 +19,10 @@ Elementos dinâmicos:
 
 from __future__ import annotations
 
-import os
 import re
 
-from dotenv import load_dotenv
 from playwright.sync_api import Page, expect
-
-load_dotenv()
+from utils.navigation import open_homepage
 
 # Perguntas observadas no snapshot MCP (todas visíveis na seção sem expandir).
 _FAQ_QUESTION_BUTTONS = (
@@ -36,27 +33,14 @@ _FAQ_QUESTION_BUTTONS = (
     "E se eu quiser cancelar?",
 )
 
-
-def _base_url() -> str:
-    """URL base a partir do .env; falha cedo se ausente."""
-    url = (os.getenv("BASE_URL") or "").strip().rstrip("/")
-    if not url:
-        raise RuntimeError(
-            "Defina BASE_URL no arquivo .env (ex.: BASE_URL=https://babyrefil.vercel.app)"
-        )
-    return url
-
-
 def test_ct005_faq_header_navigates_to_faq_section(page: Page):
     """
     Fluxo independente: home → FAQ no header → #faq → perguntas visíveis →
     expande um item → região e resposta visíveis (passo 3 do CT005).
     """
-    base = _base_url()
 
     # Checkpoint: homepage carregada
-    page.goto(base)
-    expect(page).to_have_url(re.compile(re.escape(base) + r"/?$"))
+    open_homepage(page)
 
     faq_link = page.get_by_role("link", name="FAQ", exact=True)
     expect(faq_link).to_be_visible()
