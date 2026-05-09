@@ -24,6 +24,11 @@ test-results/
 reports/
 
 # =========================
+# MCP Artifacts
+# =========================
+.playwright-mcp/
+
+# =========================
 # Screenshots & Evidences
 # =========================
 screenshots/
