@@ -222,6 +222,14 @@ Validar que o botão "Assine Agora" da seção de planos inicia corretamente o f
 
 Validar que o sistema não permite continuar sem preencher o campo "Nome Completo".
 
+### Pré-Condições
+
+1. Usuário acessou a homepage
+2. Usuário clicou em "Assinar Agora"
+3. Usuário selecionou um plano válido
+4. Usuário selecionou recorrência mensal
+5. Usuário avançou para a etapa "Dados Pessoais"
+
 ### Massa de Dados
 
 | Campo | Valor |
@@ -245,6 +253,14 @@ Validar que o sistema não permite continuar sem preencher o campo "Nome Complet
 ### Objetivo
 
 Validar que o sistema não permite continuar sem preencher o campo "Email".
+
+### Pré-Condições
+
+1. Usuário acessou a homepage
+2. Usuário clicou em "Assinar Agora"
+3. Usuário selecionou um plano válido
+4. Usuário selecionou recorrência mensal
+5. Usuário avançou para a etapa "Dados Pessoais"
 
 ### Massa de Dados
 
@@ -270,6 +286,14 @@ Validar que o sistema não permite continuar sem preencher o campo "Email".
 
 Validar que o sistema não permite continuar sem preencher o campo "Telefone".
 
+### Pré-Condições
+
+1. Usuário acessou a homepage
+2. Usuário clicou em "Assinar Agora"
+3. Usuário selecionou um plano válido
+4. Usuário selecionou recorrência mensal
+5. Usuário avançou para a etapa "Dados Pessoais"
+
 ### Massa de Dados
 
 | Campo | Valor |
@@ -293,6 +317,14 @@ Validar que o sistema não permite continuar sem preencher o campo "Telefone".
 ### Objetivo
 
 Validar que o sistema não permite continuar sem preencher o campo "Nome do Bebê".
+
+### Pré-Condições
+
+1. Usuário acessou a homepage
+2. Usuário clicou em "Assinar Agora"
+3. Usuário selecionou um plano válido
+4. Usuário selecionou recorrência mensal
+5. Usuário avançou para a etapa "Dados Pessoais"
 
 ### Massa de Dados
 
@@ -318,6 +350,14 @@ Validar que o sistema não permite continuar sem preencher o campo "Nome do Beb�
 
 Validar que o sistema não permite continuar sem selecionar a idade do bebê.
 
+### Pré-Condições
+
+1. Usuário acessou a homepage
+2. Usuário clicou em "Assinar Agora"
+3. Usuário selecionou um plano válido
+4. Usuário selecionou recorrência mensal
+5. Usuário avançou para a etapa "Dados Pessoais"
+
 ### Massa de Dados
 
 | Campo | Valor |
@@ -341,6 +381,14 @@ Validar que o sistema não permite continuar sem selecionar a idade do bebê.
 ---
 
 ## CT013: Validar CEP Obrigatório ou Inválido
+
+### Pré-Condições
+
+1. Usuário acessou a homepage
+2. Usuário clicou em "Assinar Agora"
+3. Usuário selecionou um plano válido
+4. Usuário selecionou recorrência mensal
+5. Usuário avançou para a etapa "Dados Pessoais"
 
 ### Objetivo
 
@@ -366,6 +414,14 @@ Validar que o sistema não permite continuar com CEP vazio ou inválido.
 
 Validar que o sistema preenche automaticamente os dados do endereço após informar um CEP válido.
 
+### Pré-Condições
+
+1. Usuário acessou a homepage
+2. Usuário clicou em "Assinar Agora"
+3. Usuário selecionou um plano válido
+4. Usuário selecionou recorrência mensal
+5. Usuário avançou para a etapa "Dados Pessoais"
+
 ### Massa de Dados
 
 | Campo | Valor |
@@ -390,6 +446,14 @@ Validar que o sistema preenche automaticamente os dados do endereço após infor
 ### Objetivo
 
 Validar que o sistema não permite continuar sem preencher os campos obrigatórios do endereço.
+
+### Pré-Condições
+
+1. Usuário acessou a homepage
+2. Usuário clicou em "Assinar Agora"
+3. Usuário selecionou um plano válido
+4. Usuário selecionou recorrência mensal
+5. Usuário avançou para a etapa "Dados Pessoais"
 
 ### Massa de Dados
 
@@ -420,6 +484,16 @@ Validar que o sistema não permite continuar sem preencher os campos obrigatóri
 ### Objetivo
 
 Validar que o sistema não permite finalizar assinatura sem preencher corretamente os dados do cartão.
+
+### Pré-Condições
+
+1. Usuário acessou a homepage
+2. Usuário clicou em "Assinar Agora"
+3. Usuário selecionou um plano válido
+4. Usuário selecionou recorrência mensal
+5. Usuário avançou para a etapa "Dados Pessoais"
+6. Preenche todos os campos de forma vália
+7. Usuário avançou para a etpada do pagamento
 
 ### Massa de Dados
 
