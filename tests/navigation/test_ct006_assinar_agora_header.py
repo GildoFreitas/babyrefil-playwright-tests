@@ -21,11 +21,9 @@ Elementos dinâmicos:
 
 from __future__ import annotations
 
-import re
-
 from playwright.sync_api import Page, expect
-from utils.navigation import open_homepage
-from utils.env import get_base_url
+
+from utils.navigation import expect_subscribe_url, open_homepage
 
 _HEADER_SUBSCRIBE_LINK = "Assinar Agora"
 
@@ -34,8 +32,6 @@ def test_ct006_header_assinar_agora_opens_subscribe_plan_step(page: Page):
     Fluxo independente: home → link "Assinar Agora" apenas no banner → /subscribe →
     tela de escolha de plano com os três planos visíveis.
     """
-    base = get_base_url()
-    
     # Checkpoint: homepage
     open_homepage(page)
 
@@ -47,7 +43,7 @@ def test_ct006_header_assinar_agora_opens_subscribe_plan_step(page: Page):
 
     # Ação crítica: início do fluxo de assinatura
     header_cta.click()
-    expect(page).to_have_url(re.compile(re.escape(base) + r"/subscribe/?$"))
+    expect_subscribe_url(page)
 
     # Checkpoint: etapa de plano no fluxo (título da etapa — estável no MCP)
     expect(page.get_by_role("main")).to_be_visible()

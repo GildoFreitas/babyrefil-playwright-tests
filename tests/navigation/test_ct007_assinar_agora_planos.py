@@ -25,8 +25,7 @@ from __future__ import annotations
 import re
 
 from playwright.sync_api import Page, expect
-from utils.navigation import open_homepage
-from utils.env import get_base_url
+from utils.navigation import expect_subscribe_url, open_homepage
 
 _PLANS_SECTION_CTA = "Assinar agora"
 
@@ -35,8 +34,6 @@ def test_ct007_planos_section_assinar_agora_opens_subscribe_flow(page: Page):
     Home → seção Planos (nav) → CTA da seção de planos → /subscribe →
     planos + indicador da etapa Recorrência no fluxo.
     """
-    base = get_base_url()
-
     # Checkpoint: homepage
     open_homepage(page)
 
@@ -57,7 +54,7 @@ def test_ct007_planos_section_assinar_agora_opens_subscribe_flow(page: Page):
     expect(plans_cta).to_be_enabled()
     plans_cta.click()
 
-    expect(page).to_have_url(re.compile(re.escape(base) + r"/subscribe/?$"))
+    expect_subscribe_url(page)
 
     # Fluxo de assinatura: etapa de seleção de plano carregada
     expect(page.get_by_role("main")).to_be_visible()

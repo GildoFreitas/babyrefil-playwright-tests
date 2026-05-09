@@ -15,8 +15,7 @@ import re
 
 from playwright.sync_api import Locator, Page, expect
 
-from utils.env import get_base_url
-from utils.navigation import open_homepage
+from utils.navigation import expect_subscribe_url, open_homepage
 
 
 def open_subscribe_from_banner(page: Page) -> None:
@@ -26,8 +25,7 @@ def open_subscribe_from_banner(page: Page) -> None:
     expect(cta).to_be_visible()
     expect(cta).to_be_enabled()
     cta.click()
-    base = get_base_url()
-    expect(page).to_have_url(re.compile(re.escape(base) + r"/subscribe/?$"))
+    expect_subscribe_url(page)
 
 
 def ensure_plan_selected(page: Page) -> None:

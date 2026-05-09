@@ -12,8 +12,6 @@ Riscos de flake:
 
 from __future__ import annotations
 
-import re
-
 from playwright.sync_api import Page, expect
 
 from data.subscription_data import (
@@ -23,7 +21,7 @@ from data.subscription_data import (
     SUBSCRIPTION_NOME_COMPLETO,
     VALIDATION_MSG_TELEFONE_OBRIGATORIO,
 )
-from utils.env import get_base_url
+from utils.navigation import expect_subscribe_url
 from utils.subscription_steps import (
     click_avancar,
     expect_dados_pessoais_step,
@@ -32,8 +30,6 @@ from utils.subscription_steps import (
 
 
 def test_ct010_telefone_vazio_impede_avanco_e_exibe_erro(page: Page):
-    base = get_base_url()
-
     go_to_personal_data_step(page)
     dados_pessoais = expect_dados_pessoais_step(page)
 
@@ -54,4 +50,4 @@ def test_ct010_telefone_vazio_impede_avanco_e_exibe_erro(page: Page):
     expect(page.get_by_text(VALIDATION_MSG_TELEFONE_OBRIGATORIO, exact=True)).to_be_visible()
     expect(dados_pessoais).to_be_visible()
     expect(telefone).to_be_visible()
-    expect(page).to_have_url(re.compile(re.escape(base) + r"/subscribe/?$"))
+    expect_subscribe_url(page)
