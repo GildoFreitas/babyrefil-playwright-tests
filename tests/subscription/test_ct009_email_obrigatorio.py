@@ -1,13 +1,18 @@
 """
-CT009 — Validar campo "E-mail" obrigatório (test-cases.md).
+CT009 — Required "E-mail" field (docs/test-cases.md, personal data).
 
-Pré-condições: `go_to_personal_data_step` em utils/subscription_steps.py.
+Objective:
+    The user cannot proceed with an empty email.
 
-Nota: com o campo vazio, a UI exibe "E-mail inválido." (validação de formato / Zod), o que
-ainda impede o avanço e atende ao objetivo do caso.
+Preconditions:
+    ``go_to_personal_data_step`` in ``utils/subscription_steps.py``.
 
-Riscos de flake:
-- Combobox idade: fechar após selecionar a faixa antes de Avançar.
+UI note:
+    An empty field surfaces ``E-mail inválido.`` (Zod / format validation) rather than the word
+    "obrigatório"; progression is still blocked, matching the case intent.
+
+Flake risks:
+    - Age combobox: close after selecting the range before clicking Next.
 """
 
 from __future__ import annotations

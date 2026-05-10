@@ -1,12 +1,12 @@
 """
-Passos reutilizáveis até a etapa "Pagamento" no /subscribe.
+Steps up to the Payment step on ``/subscribe``.
 
-Reutiliza `go_to_address_step` (subscription → dados pessoais → endereço) e completa o endereço
-com a massa padrão (`complete_endereco_step`) para chegar à última etapa do fluxo.
+Uses ``go_to_address_step`` (subscription → personal data → address) and ``complete_endereco_step``
+with the default data set to reach the last wizard stage.
 
-Locators estáveis observados no código da aplicação (snapshot MCP):
-- Etapa pagamento: "Resumo do Pedido" + botão "Finalizar Assinatura" (CTA único da etapa).
-- Campos do cartão (labels): "Número do Cartão", "Nome no Cartão", "Validade", "CVV", "CPF do Titular".
+Stable locators (MCP snapshot):
+    - Payment: ``Resumo do Pedido`` + button ``Finalizar Assinatura`` (single CTA for the step).
+    - Card fields (labels): ``Número do Cartão``, ``Nome no Cartão``, ``Validade``, ``CVV``, ``CPF do Titular``.
 """
 
 from __future__ import annotations
@@ -25,11 +25,10 @@ from utils.address_steps import complete_endereco_step, go_to_address_step
 
 def expect_pagamento_step(page: Page) -> Locator:
     """
-    Checkpoint: etapa "Pagamento" visível.
+    Checkpoint: payment step visible.
 
-    Usa "Resumo do Pedido" (texto único da etapa) + botão "Finalizar Assinatura"
-    como âncora estável — o texto "Pagamento" aparece duplicado (indicador de etapa
-    e título da seção), por isso não é usado como locator único.
+    Anchors on ``Resumo do Pedido`` + ``Finalizar Assinatura`` — the word ``Pagamento`` is duplicated
+    (stepper + section title), so it is not used as the sole locator.
     """
     expect(page.get_by_text("Resumo do Pedido", exact=True)).to_be_visible()
     finalizar = page.get_by_role("button", name="Finalizar Assinatura")
@@ -38,17 +37,14 @@ def expect_pagamento_step(page: Page) -> Locator:
 
 
 def go_to_payment_step(page: Page) -> None:
-    """
-    Abre /subscribe, percorre Plano → Recorrência → Dados Pessoais → Endereço (massa padrão)
-    e clica em Avançar até exibir o formulário de pagamento.
-    """
+    """Open subscribe flow through address (default data) until the payment form is shown."""
     go_to_address_step(page)
     complete_endereco_step(page)
     expect_pagamento_step(page)
 
 
 def click_finalizar_assinatura(page: Page) -> None:
-    """Clica no CTA "Finalizar Assinatura" da etapa de pagamento (auto-retry via expect)."""
+    """Click ``Finalizar Assinatura`` on the payment step."""
     finalizar = page.get_by_role("button", name="Finalizar Assinatura")
     expect(finalizar).to_be_visible()
     expect(finalizar).to_be_enabled()
@@ -56,10 +52,7 @@ def click_finalizar_assinatura(page: Page) -> None:
 
 
 def fill_cartao(page: Page, *, numero: str) -> None:
-    """
-    Preenche o formulário de cartão com a massa padrão do titular (nome/validade/CVV/CPF).
-    Apenas o número do cartão varia entre cenários (Visa válido vs Mastercard saldo insuficiente).
-    """
+    """Fill card form with default holder data; only ``numero`` varies by scenario."""
     page.get_by_label("Número do Cartão").fill(numero)
     page.get_by_label("Nome no Cartão").fill(PAYMENT_NOME_TITULAR)
     page.get_by_label("Validade").fill(PAYMENT_VALIDADE_FUTURA)
@@ -69,8 +62,9 @@ def fill_cartao(page: Page, *, numero: str) -> None:
 
 def expect_assinatura_confirmada(page: Page) -> Locator:
     """
-    Checkpoint: tela "Assinatura confirmada!" visível, com número do pedido no formato BR + 13 dígitos.
-    Retorna o heading h1 para reutilização nas asserções finais dos testes.
+    Checkpoint: h1 ``Assinatura confirmada!`` and order line matching ``PAYMENT_PEDIDO_NUMERO_REGEX``.
+
+    Returns the h1 locator for final assertions.
     """
     confirmada = page.get_by_role("heading", name="Assinatura confirmada!", level=1)
     expect(confirmada).to_be_visible()

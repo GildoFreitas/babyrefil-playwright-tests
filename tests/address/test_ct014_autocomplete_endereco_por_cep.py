@@ -1,12 +1,17 @@
 """
-CT014 — Validar preenchimento automático de endereço pelo CEP (test-cases.md).
+CT014 — Address autofill by CEP (docs/test-cases.md, address).
 
-Pré-condições: etapa "Endereço de Entrega" via `go_to_address_step` em utils/address_steps.py.
+Objective:
+    After a valid CEP and Search, street, neighborhood, city, and state are filled.
 
-Fluxo: informar CEP válido → Buscar → validar rua, bairro, cidade e estado.
+Preconditions:
+    Delivery address section via ``go_to_address_step`` in ``utils/address_steps.py``.
 
-Riscos de flake:
-- Latência da API de CEP; `buscar_endereco_por_cep` usa timeout explícito no campo Rua.
+Flow:
+    Enter valid CEP → click ``Buscar`` → assert ``Rua``, ``Bairro``, ``Cidade``, ``Estado``.
+
+Flake risks:
+    - CEP API latency; ``buscar_endereco_por_cep`` uses an explicit timeout on the ``Rua`` field.
 """
 
 from __future__ import annotations

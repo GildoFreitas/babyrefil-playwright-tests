@@ -1,19 +1,21 @@
 """
-CT002 — Adesão com Falha de Pagamento (Saldo Insuficiente) (test-cases.md, Fluxo de Assinatura).
+CT002 — Checkout fails with insufficient funds (docs/test-cases.md, checkout flow).
 
-Pré-condições: etapa "Pagamento" via `go_to_payment_step` em utils/payment_steps.py
-(percorre Plano → Recorrência → Dados Pessoais → Endereço com a massa padrão).
+Objective:
+    Validate behavior when payment is declined for insufficient funds.
 
-Cenário: cartão Mastercard de saldo insuficiente (`PAYMENT_CARD_MASTERCARD_SALDO_INSUFICIENTE`)
-→ pagamento recusado, exibindo o toast "Transação não autorizada. Entre em contato com o emissor
-do cartão." e mantendo o usuário na etapa de pagamento.
+Preconditions:
+    The Payment step is reached via ``go_to_payment_step`` in ``utils/payment_steps.py``
+    (Plan → Recurrence → Personal data → Address with the default data set).
 
-Nota de alinhamento com a UI: o caso fala em "Confirmar Pagamento"; o CTA real é "Finalizar Assinatura".
-A mensagem de erro aparece via toast (sonner) na região "Notifications" — pode auto-dismiss.
+Scenario:
+    Insufficient-funds Mastercard (``PAYMENT_CARD_MASTERCARD_SALDO_INSUFICIENTE``) → payment
+    is declined, a toast shows ``PAYMENT_MSG_TRANSACAO_NAO_AUTORIZADA``, and the user stays
+    on the payment step.
 
-Riscos de flake:
-- Toast aparece após resposta do gateway simulado; default timeout do `expect` (5s) é suficiente.
-- Toast pode somar-se a outros pop-ups; usamos texto exato da descrição para isolar.
+Flake risks:
+    - Toast appears after the simulated gateway response; default ``expect`` timeout is usually enough.
+    - Multiple toasts can stack; the test uses the exact expected message string.
 """
 
 from __future__ import annotations

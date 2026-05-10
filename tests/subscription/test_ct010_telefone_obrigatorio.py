@@ -1,13 +1,17 @@
 """
-CT010 — Validar campo "Telefone" obrigatório (test-cases.md).
+CT010 — Required "Telefone" field (docs/test-cases.md, personal data).
 
-Pré-condições: `go_to_personal_data_step` em utils/subscription_steps.py.
+Objective:
+    The user cannot proceed with an empty phone number.
 
-Nota: com o campo vazio, a UI exibe "Telefone inválido." (validação mínima / Zod), impedindo
-o avanço conforme o objetivo do caso.
+Preconditions:
+    ``go_to_personal_data_step`` in ``utils/subscription_steps.py``.
 
-Riscos de flake:
-- Combobox idade: fechar após selecionar a faixa antes de Avançar.
+UI note:
+    An empty or too-short value shows ``Telefone inválido.`` (minimum length / Zod), blocking advance.
+
+Flake risks:
+    - Age combobox: close after selecting the range before clicking Next.
 """
 
 from __future__ import annotations

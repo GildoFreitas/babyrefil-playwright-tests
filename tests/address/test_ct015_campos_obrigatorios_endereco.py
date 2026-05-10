@@ -1,13 +1,18 @@
 """
-CT015 — Validar campos obrigatórios do endereço (test-cases.md).
+CT015 — Required address fields (docs/test-cases.md, address).
 
-Pré-condições: etapa "Endereço de Entrega" via `go_to_address_step` em utils/address_steps.py.
+Objective:
+    User cannot continue when mandatory address lines are empty after entering CEP.
 
-Massa: CEP válido preenchido; rua, número, bairro, cidade e estado permanecem vazios (sem acionar
-"Buscar", alinhado à tabela do caso — somente o CEP informado).
+Preconditions:
+    Delivery address section via ``go_to_address_step`` in ``utils/address_steps.py``.
 
-Riscos de flake:
-- Mensagens de outros blocos do formulário; o teste valida as cinco cópias do endereço.
+Data:
+    Valid CEP filled; street, number, neighborhood, city, and state left empty (no ``Buscar``),
+    aligned with the case table.
+
+Flake risks:
+    - Errors from other form blocks may appear; this test asserts all five address messages.
 """
 
 from __future__ import annotations

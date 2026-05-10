@@ -1,11 +1,14 @@
 """
-CT011 — Validar campo "Nome do Bebê" obrigatório (test-cases.md).
+CT011 — Required "Nome do Bebê" field (docs/test-cases.md, personal data).
 
-Pré-condições: `go_to_personal_data_step` em utils/subscription_steps.py.
+Objective:
+    The user cannot proceed without the baby's name.
 
-Riscos de flake:
-- Ao avançar sem nome do bebê, a UI pode exibir outros erros de endereço; o teste valida a
-  mensagem específica do nome do bebê.
+Preconditions:
+    ``go_to_personal_data_step`` in ``utils/subscription_steps.py``.
+
+Flake risks:
+    - Other errors (e.g. address) may appear together; the test asserts the baby-name message.
 """
 
 from __future__ import annotations

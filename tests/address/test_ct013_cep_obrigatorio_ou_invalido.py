@@ -1,14 +1,18 @@
 """
-CT013 — Validar CEP obrigatório ou inválido (test-cases.md).
+CT013 — Required or invalid CEP (docs/test-cases.md, address).
 
-Pré-condições: etapa "Endereço de Entrega" via `go_to_address_step` em utils/address_steps.py.
+Objective:
+    The user cannot continue with blank or malformed CEP.
 
-Cenários:
-- CEP em branco: a UI reutiliza a mensagem de CEP inválido (mesmo padrão de outros campos com Zod).
-- CEP com formato inválido: mesma mensagem, sem depender de API de busca de CEP.
+Preconditions:
+    Delivery address section via ``go_to_address_step`` in ``utils/address_steps.py``.
 
-Riscos de flake:
-- Outros erros de endereço podem aparecer quando o CEP está vazio; o teste valida explicitamente a mensagem do CEP.
+Scenarios:
+    - Empty CEP: UI reuses ``CEP inválido.`` (same pattern as other Zod fields).
+    - Malformed CEP (``ADDRESS_CEP_MALFORMED``): same message without calling the lookup API.
+
+Flake risks:
+    - Other address errors may show when CEP is empty; the test asserts the CEP message explicitly.
 """
 
 from __future__ import annotations

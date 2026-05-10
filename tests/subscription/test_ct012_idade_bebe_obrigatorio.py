@@ -1,12 +1,17 @@
 """
-CT012 — Validar campo "Idade do Bebê" obrigatório (test-cases.md).
+CT012 — Required "Idade do Bebê" field (docs/test-cases.md, personal data).
 
-Pré-condições: `go_to_personal_data_step` em utils/subscription_steps.py.
+Objective:
+    The user cannot proceed without selecting the baby's age range.
 
-Massa: idade não selecionada — combobox permanece com o placeholder.
+Preconditions:
+    ``go_to_personal_data_step`` in ``utils/subscription_steps.py``.
 
-Riscos de flake:
-- Outros erros (ex.: endereço) podem aparecer juntos; o teste valida apenas a mensagem da idade.
+Data:
+    Age not selected — combobox keeps the placeholder (``SUBSCRIPTION_IDADE_PLACEHOLDER``).
+
+Flake risks:
+    - Address or other errors may appear together; the test asserts only the age validation message.
 """
 
 from __future__ import annotations

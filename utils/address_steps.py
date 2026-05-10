@@ -1,8 +1,8 @@
 """
-Passos reutilizáveis até a etapa "Endereço de Entrega" no /subscribe.
+Steps to reach the ``Endereço de Entrega`` section on ``/subscribe``.
 
-Reutiliza a navegação inicial de `subscription_steps` (banner → plano → mensal → dados pessoais),
-em seguida preenche a massa padrão de dados pessoais/bebê e avança até o bloco de CEP/endereço.
+Reuses ``subscription_steps`` for banner → plan → monthly → personal data, then fills default
+personal/baby fields so the CEP/address block is ready for tests.
 """
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ from utils.subscription_steps import (
 
 
 def expect_endereco_entrega_step(page: Page) -> Locator:
-    """Checkpoint: seção Endereço de Entrega visível (heading nível 3)."""
+    """Checkpoint: h3 ``Endereço de Entrega`` is visible."""
     endereco = page.get_by_role("heading", name="Endereço de Entrega", level=3)
     expect(endereco).to_be_visible()
     return endereco
@@ -39,13 +39,12 @@ def expect_endereco_entrega_step(page: Page) -> Locator:
 
 def go_to_address_step(page: Page) -> None:
     """
-    Abre /subscribe, percorre até a tela "Seus Dados" e preenche Dados Pessoais + Bebê.
+    Navigate to ``Seus Dados`` and fill personal + baby fields.
 
-    A tela "Seus Dados" engloba Dados Pessoais, Dados do Bebê e Endereço de Entrega na mesma
-    página, com um único Avançar que valida o form inteiro (Zod) e leva direto a Pagamento.
-    Por isso NÃO clicamos Avançar aqui — a seção de Endereço já está visível desde a chegada
-    nessa tela. Clicar Avançar antes do endereço estar preenchido dispara um flash de erros
-    nos campos de endereço (sem efeito funcional, apenas cosmético).
+    The screen combines personal data, baby data, and delivery address on one page with a single
+    ``Avançar`` that validates the whole form (Zod) and goes to Payment when valid. We therefore
+    do **not** click ``Avançar`` here — the address block is already visible. Clicking ``Avançar``
+    before the address is complete can flash transient address errors (cosmetic only).
     """
     go_to_personal_data_step(page)
     expect_dados_pessoais_step(page)
@@ -62,24 +61,19 @@ def go_to_address_step(page: Page) -> None:
 
 
 def buscar_endereco_por_cep(page: Page, cep: str) -> None:
-    """
-    Informa o CEP, clica em Buscar e aguarda o logradouro retornado pela API (campo Rua habilitado e preenchido).
-    """
+    """Fill CEP, click ``Buscar``, wait until ``Rua`` has a non-empty value from the API."""
     page.get_by_label("CEP").fill(cep)
     buscar = page.get_by_role("button", name="Buscar")
     expect(buscar.first).to_be_visible()
     expect(buscar.first).to_be_enabled()
     buscar.first.click()
     rua = page.get_by_label("Rua")
-    # A UI pode manter o logradouro desabilitado após a busca; basta aguardar o valor da API.
+    # Street may stay disabled after lookup; value from the API is enough.
     expect(rua).to_have_value(re.compile(r"\S"), timeout=20_000)
 
 
 def complete_endereco_step(page: Page) -> None:
-    """
-    Conclui a etapa de endereço com a massa padrão (CEP + autocomplete + Número/Complemento)
-    e clica em Avançar. Pré-requisito: já estar na etapa "Endereço de Entrega".
-    """
+    """Complete address with default CEP lookup + number/complement, then click ``Avançar``."""
     buscar_endereco_por_cep(page, ADDRESS_CEP_VALIDO_AUTOCOMPLETE)
     page.get_by_label("Número").fill(ADDRESS_NUMERO)
     page.get_by_label("Complemento (Opcional)").fill(ADDRESS_COMPLEMENTO)

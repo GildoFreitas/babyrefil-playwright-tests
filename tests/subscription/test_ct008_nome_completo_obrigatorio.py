@@ -1,11 +1,16 @@
 """
-CT008 — Validar campo "Nome Completo" obrigatório (test-cases.md).
+CT008 — Required "Nome Completo" field (docs/test-cases.md, personal data).
 
-Pré-condições: `go_to_personal_data_step` em utils/subscription_steps.py.
+Objective:
+    The user cannot proceed without filling full name; the expected validation message is shown.
 
-Riscos de flake:
-- Combobox de idade: fechar após escolher a option antes de Avançar.
-- Radio Mensal sr-only: tratado em subscription_steps.select_frequencia_mensal.
+Preconditions:
+    ``go_to_personal_data_step`` in ``utils/subscription_steps.py`` (home → subscribe → plan →
+    monthly recurrence → personal data screen).
+
+Flake risks:
+    - Age combobox: select the option before clicking Next.
+    - Monthly radio is visually hidden; handled in ``select_frequencia_mensal``.
 """
 
 from __future__ import annotations

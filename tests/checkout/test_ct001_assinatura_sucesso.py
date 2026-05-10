@@ -1,22 +1,24 @@
 """
-CT001 — Adesão de Assinatura com Sucesso (test-cases.md, Fluxo de Assinatura).
+CT001 — Successful subscription checkout (docs/test-cases.md, checkout flow).
 
-Pré-condições: etapa "Pagamento" via `go_to_payment_step` em utils/payment_steps.py
-(percorre Plano → Recorrência → Dados Pessoais → Endereço com a massa padrão).
+Objective:
+    Validate the end-to-end subscription flow with valid data.
 
-Cenário: cartão Visa válido (`PAYMENT_CARD_VISA_VALIDO`) → pagamento aprovado e tela de confirmação
-exibida com:
-- Heading h1 "Assinatura confirmada!"
-- "Resumo do seu pedido" + número do pedido no formato `BR<13 dígitos>` (`PAYMENT_PEDIDO_NUMERO_REGEX`)
-- Cabeçalhos do resumo: "Plano", "Frequência", "Endereço de Entrega", "Próxima Entrega"
-- Data estimada de entrega no padrão pt-BR (`PAYMENT_DATA_ENTREGA_REGEX`)
+Preconditions:
+    The Payment step is reached via ``go_to_payment_step`` in ``utils/payment_steps.py``
+    (Plan → Recurrence → Personal data → Address with the default data set).
 
-Nota de alinhamento com a UI: o caso fala em "Confirmar Pagamento"; o CTA real é "Finalizar Assinatura".
-A confirmação acontece in-place (mesma URL `/subscribe`), não há redirect — validamos pelo conteúdo da tela.
-
-Riscos de flake:
-- Número do pedido é dinâmico (timestamp); validamos por regex de formato, não por valor exato.
-- Data por extenso varia diariamente; validamos por padrão "<dia> de <mês> de <ano>".
+Scenario:
+    Valid Visa card (``PAYMENT_CARD_VISA_VALIDO``) → payment is approved and the confirmation
+    screen shows:
+    - h1 ``Assinatura confirmada!``
+    - ``Resumo do seu pedido`` + order number matching ``PAYMENT_PEDIDO_NUMERO_REGEX``
+    - Summary headings: ``Plano``, ``Frequência``, ``Endereço de Entrega``, ``Próxima Entrega``
+    - Estimated delivery date in pt-BR long form (``PAYMENT_DATA_ENTREGA_REGEX``)
+    
+Flake risks:
+    - Order number is dynamic (e.g. timestamp); assert format via regex, not an exact string.
+    - Long-form date changes daily; assert using the ``<day> de <month> de <year>`` pattern.
 """
 
 from __future__ import annotations

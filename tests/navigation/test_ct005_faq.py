@@ -1,20 +1,20 @@
 """
-CT005 — Validar navegação do botão "FAQ" (test-cases.md).
+CT005 — "FAQ" header navigation (docs/test-cases.md).
 
-Exploração MCP (snapshot de acessibilidade):
-- Menu: role "link", nome "FAQ", destino /#faq.
-- Após o clique: URL com fragmento #faq.
-- Seção: heading nível 2 "Perguntas Frequentes"; parágrafo introdutório da área FAQ.
-- Itens do acordeão: role "button" com o texto da pergunta; ao expandir, role "region"
-  com o mesmo nome acessível da pergunta e texto de resposta no interior.
+MCP / a11y exploration:
+    - Menu: role ``link``, name ``FAQ``, target ``/#faq``.
+    - After click: URL fragment ``#faq``.
+    - Section: level-2 heading ``Perguntas Frequentes``; introductory paragraph in the FAQ block.
+    - Accordion: question buttons; expanding reveals a ``region`` with the same accessible name
+      and answer text inside.
 
-Riscos de flake:
-- Acordeão: respostas fechadas não aparecem no DOM até expandir; o teste abre um item
-  e valida região + trecho curto da resposta (evita parágrafo inteiro frágil).
-- Outros botões na página têm nomes distintos dos itens do FAQ.
+Flake risks:
+    - Collapsed answers may be absent from the a11y tree until expanded; the test opens one item
+      and asserts on the region plus a short answer substring.
+    - Other buttons on the page have distinct names from FAQ items.
 
-Elementos dinâmicos:
-- Copy longo das respostas pode mudar; manter apenas substring estável e curta.
+Dynamic content:
+    - Long answer copy may change; keep only a short stable substring for assertions.
 """
 
 from __future__ import annotations
@@ -24,7 +24,6 @@ import re
 from playwright.sync_api import Page, expect
 from utils.navigation import open_homepage
 
-# Perguntas observadas no snapshot MCP (todas visíveis na seção sem expandir).
 _FAQ_QUESTION_BUTTONS = (
     "Como funciona o clube de assinatura?",
     "Posso alterar meu plano ou a frequência?",
@@ -34,36 +33,26 @@ _FAQ_QUESTION_BUTTONS = (
 )
 
 def test_ct005_faq_header_navigates_to_faq_section(page: Page):
-    """
-    Fluxo independente: home → FAQ no header → #faq → perguntas visíveis →
-    expande um item → região e resposta visíveis (passo 3 do CT005).
-    """
 
-    # Checkpoint: homepage carregada
     open_homepage(page)
 
     faq_link = page.get_by_role("link", name="FAQ", exact=True)
     expect(faq_link).to_be_visible()
     expect(faq_link).to_be_enabled()
 
-    # Ação crítica: âncora da seção FAQ
     faq_link.click()
     expect(page).to_have_url(re.compile(r"#faq"))
 
-    # Checkpoint: título da seção na viewport
     section_title = page.get_by_role("heading", name="Perguntas Frequentes", level=2)
     expect(section_title).to_be_visible()
     expect(section_title).to_be_in_viewport()
 
-    # Passo 3: perguntas exibidas (botões do acordeão com nome acessível único)
     for question in _FAQ_QUESTION_BUTTONS:
         expect(page.get_by_role("button", name=question)).to_be_visible()
 
-    # Conteúdo de resposta: expande o primeiro item e valida region + trecho da resposta
     first = _FAQ_QUESTION_BUTTONS[0]
     page.get_by_role("button", name=first).click()
 
     answer_region = page.get_by_role("region", name=first)
     expect(answer_region).to_be_visible()
-    # Trecho curto observado no MCP (menos sujeito a mudanças de copy longo)
     expect(answer_region.get_by_text("Você escolhe um de nossos planos", exact=False)).to_be_visible()

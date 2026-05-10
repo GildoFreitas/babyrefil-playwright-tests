@@ -1,19 +1,21 @@
 """
-CT016 — Validar campos obrigatórios do cartão (test-cases.md).
+CT016 — Required / invalid payment fields (docs/test-cases.md, payment).
 
-Pré-condições: etapa "Pagamento" via `go_to_payment_step` em utils/payment_steps.py
-(percorre Plano → Recorrência → Dados Pessoais → Endereço com a massa padrão).
+Objective:
+    Subscription cannot complete without valid card data; validation messages appear.
 
-Cenários (alinhados à massa do caso):
-- Todos os campos do cartão vazios: o app exibe as 5 mensagens de erro do formulário.
-- Todos os campos com formato inválido (não-vazio): o app reusa as mesmas mensagens
-  (validação Zod por campo, sem chamada a gateway).
+Preconditions:
+    Payment step via ``go_to_payment_step`` in ``utils/payment_steps.py``
+    (Plan → Recurrence → Personal data → Address with default data).
 
-Riscos de flake:
-- O texto "Pagamento" aparece no indicador de etapa e no título da seção; o checkpoint
-  da etapa usa "Resumo do Pedido" + botão "Finalizar Assinatura" (`expect_pagamento_step`).
-- Mensagens são parágrafos próximos a cada campo; validamos por texto exato para evitar
-  acoplamento a estrutura DOM/aria.
+Scenarios (aligned with case data):
+    - All card fields empty: all five form error messages.
+    - Invalid non-empty values: same messages (per-field Zod) without hitting the payment gateway.
+
+Flake risks:
+    - The word ``Pagamento`` appears in the step indicator and section title; the step checkpoint
+      uses ``Resumo do Pedido`` + ``Finalizar Assinatura`` (``expect_pagamento_step``).
+    - Messages sit near fields; assertions use exact UI strings to avoid brittle DOM coupling.
 """
 
 from __future__ import annotations

@@ -72,14 +72,14 @@ Verify the complete subscription checkout flow using valid data.
 
 | Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Click the "Assinar agora" button. | The user should be redirected to the plan selection step. The Essencial, Conforto, and Completo plans should be displayed. |
+| 1 | Click the "Assinar Agora" button (header). | The user should be redirected to the plan selection step. The Essencial, Conforto, and Completo plans should be displayed. |
 | 2 | Select an available plan. | The user should proceed to the recurrence selection step. |
 | 3 | Select a recurrence option and continue. | The system should correctly update the pricing and proceed with the flow. |
 | 4 | Fill in all valid personal information fields. | The system should allow the user to continue the flow. |
 | 5 | Fill in a valid delivery address. | The system should allow the user to continue the flow. |
 | 6 | Fill in all payment fields using the **Valid (Visa)** card test data. | The system should correctly accept the payment information. |
-| 7 | Click "Finalizar assinatura". | The payment should be successfully approved. |
-| 8 | Verify the confirmation screen. | 1. The payment is successfully processed.<br>2. The user is redirected to the subscription confirmation page.<br>3. The confirmation page displays the plan summary and estimated delivery date.<br>4. An order number should be displayed in the format **BR1761410590280**. |
+| 7 | Click "Finalizar Assinatura". | The payment should be successfully approved. |
+| 8 | Verify the confirmation screen. | 1. The payment is successfully processed.<br>2. The confirmation appears in the same subscribe flow (URL stays on `/subscribe`); the screen shows the success state (e.g. heading **Assinatura confirmada!**).<br>3. The confirmation area displays the plan summary and estimated delivery date.<br>4. An order reference is shown matching the pattern **Pedido nº BR** + 13 digits (example: **BR1761410590280**). |
 
 ---
 
@@ -108,8 +108,8 @@ Verify the system behavior when processing a payment with insufficient funds.
 | 3 | Fill in valid personal information. | The system should allow the user to continue. |
 | 4 | Fill in a valid address. | The system should allow the user to continue. |
 | 5 | Fill in all payment fields using the **Invalid (Insufficient Funds)** card test data. | The payment information should be accepted for processing. |
-| 6 | Click "Finalizar assinatura". | The payment should be declined. |
-| 7 | Verify the error message. | The message "**Transação não autorizada. Entre em contato com a administradora do seu cartão.**" should be displayed informing the payment failure. |
+| 6 | Click "Finalizar Assinatura". | The payment should be declined. |
+| 7 | Verify the error message. | The message "**Transação não autorizada. Entre em contato com o emissor do cartão.**" should be displayed informing the payment failure. |
 | 8 | Verify that the user remains on the payment screen. | The user should remain on the payment step. |
 
 ---
@@ -172,11 +172,11 @@ Verify that the "FAQ" button correctly redirects the user to the FAQ section.
 
 ---
 
-## CT006: Verify Header "Assinar agora" Button
+## CT006: Verify Header "Assinar Agora" Button
 
 ### Objective
 
-Verify that the header "Assinar agora" button correctly starts the subscription flow.
+Verify that the header "Assinar Agora" button correctly starts the subscription flow.
 
 ### Preconditions
 
@@ -185,7 +185,7 @@ Verify that the header "Assinar agora" button correctly starts the subscription 
 | Step | Action | Expected Result |
 | --- | --- | --- |
 | 1 | Access the BabyRefil homepage. | The homepage should load successfully. |
-| 2 | Click the header "Assinar agora" button. | The user should be redirected to the subscription flow. |
+| 2 | Click the header "Assinar Agora" button. | The user should be redirected to the subscription flow. |
 | 3 | Verify the plan selection screen. | The available plans should be displayed correctly. |
 
 ---
@@ -194,7 +194,7 @@ Verify that the header "Assinar agora" button correctly starts the subscription 
 
 ### Objective
 
-Verify that the "Assinar agora" button in the plans section correctly starts the subscription flow.
+Verify that the "Assinar agora" link in the plans section (sentence case on this CTA) correctly starts the subscription flow.
 
 ### Preconditions
 
@@ -205,7 +205,7 @@ Verify that the "Assinar agora" button in the plans section correctly starts the
 | 1 | Access the BabyRefil homepage. | The homepage should load successfully. |
 | 2 | Navigate to the plans section. | The section should be displayed correctly. |
 | 3 | Click "Assinar agora" for an available plan. | The subscription flow should start successfully. |
-| 4 | Verify the recurrence step. | The recurrence screen should be displayed correctly. |
+| 4 | Verify the recurrence step. | The subscribe wizard should show **Recorrência** in the stepper (together with the plan step), confirming the flow includes recurrence. |
 
 ---
 
@@ -222,7 +222,7 @@ Verify that the system does not allow the user to continue without filling in th
 ### Preconditions
 
 1. The user accessed the homepage.
-2. The user clicked "Assinar agora".
+2. The user clicked "Assinar Agora".
 3. The user selected a valid plan.
 4. The user selected monthly recurrence.
 5. The user proceeded to the "Informações pessoais" step.
@@ -254,7 +254,7 @@ Verify that the system does not allow the user to continue without filling in th
 ### Preconditions
 
 1. The user accessed the homepage.
-2. The user clicked "Assinar agora".
+2. The user clicked "Assinar Agora".
 3. The user selected a valid plan.
 4. The user selected monthly recurrence.
 5. The user proceeded to the "Informações pessoais" step.
@@ -286,7 +286,7 @@ Verify that the system does not allow the user to continue without filling in th
 ### Preconditions
 
 1. The user accessed the homepage.
-2. The user clicked "Assinar agora".
+2. The user clicked "Assinar Agora".
 3. The user selected a valid plan.
 4. The user selected monthly recurrence.
 5. The user proceeded to the "Informações pessoais" step.
@@ -318,7 +318,7 @@ Verify that the system does not allow the user to continue without filling in th
 ### Preconditions
 
 1. The user accessed the homepage.
-2. The user clicked "Assinar agora".
+2. The user clicked "Assinar Agora".
 3. The user selected a valid plan.
 4. The user selected monthly recurrence.
 5. The user proceeded to the "Informações pessoais" step.
@@ -350,7 +350,7 @@ Verify that the system does not allow the user to continue without selecting the
 ### Preconditions
 
 1. The user accessed the homepage.
-2. The user clicked "Assinar agora".
+2. The user clicked "Assinar Agora".
 3. The user selected a valid plan.
 4. The user selected monthly recurrence.
 5. The user proceeded to the "Informações pessoais" step.
@@ -386,7 +386,7 @@ Verify that the system does not allow the user to continue with a blank or inval
 ### Preconditions
 
 1. The user accessed the homepage.
-2. The user clicked "Assinar agora".
+2. The user clicked "Assinar Agora".
 3. The user selected a valid plan.
 4. The user selected monthly recurrence.
 5. The user proceeded to the "Endereço" step.
@@ -414,7 +414,7 @@ Verify that the system automatically fills in the address information after ente
 ### Preconditions
 
 1. The user accessed the homepage.
-2. The user clicked "Assinar agora".
+2. The user clicked "Assinar Agora".
 3. The user selected a valid plan.
 4. The user selected monthly recurrence.
 5. The user proceeded to the "Endereço" step.
@@ -447,7 +447,7 @@ Verify that the system does not allow the user to continue without filling in th
 ### Preconditions
 
 1. The user accessed the homepage.
-2. The user clicked "Assinar agora".
+2. The user clicked "Assinar Agora".
 3. The user selected a valid plan.
 4. The user selected monthly recurrence.
 5. The user proceeded to the "Endereço" step.
@@ -485,7 +485,7 @@ Verify that the system does not allow the user to complete the subscription with
 ### Preconditions
 
 1. The user accessed the homepage.
-2. The user clicked "Assinar agora".
+2. The user clicked "Assinar Agora".
 3. The user selected a valid plan.
 4. The user selected monthly recurrence.
 5. The user proceeded to the "Pagamento" step.
@@ -505,5 +505,5 @@ Verify that the system does not allow the user to complete the subscription with
 | Step | Action | Expected Result |
 | --- | --- | --- |
 | 1 | Leave credit card fields blank or invalid. | The form should remain invalid. |
-| 2 | Click "Confirmar pagamento". | The system should prevent the subscription from being completed. |
+| 2 | Click "Finalizar Assinatura". | The system should prevent the subscription from being completed. |
 | 3 | Verify the error messages. | Validation messages indicating required or invalid fields should be displayed. |

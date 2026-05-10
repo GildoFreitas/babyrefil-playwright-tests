@@ -1,12 +1,12 @@
 """
-Passos reutilizáveis do fluxo de assinatura (exploração + bundle Next.js da página /subscribe).
+Reusable steps for the subscription flow (MCP exploration + Next.js bundle for ``/subscribe``).
 
-Locators estáveis observados no código da aplicação:
-- CTA header: link "Assinar Agora" no banner.
-- Plano: heading "Escolha o seu plano"; botões "Selecionar Plano" / "Plano Selecionado".
-- Avanço entre etapas: botão com texto "Avançar" (presente no bundle; deve aparecer após seleção de plano).
-- Recorrência: opções com texto "Mensal" / "Quinzenal" (cards clicáveis).
-- Dados: texto "Seus Dados"; heading "Dados Pessoais" (nível 3); labels dos campos do formulário.
+Stable locators observed in the app:
+    - Header CTA: ``banner`` → link ``Assinar Agora``.
+    - Plan step: h2 ``Escolha o seu plano``; buttons ``Selecionar Plano`` / ``Plano Selecionado``.
+    - Step navigation: button text ``Avançar`` (present in bundle; visible after plan selection).
+    - Recurrence: options ``Mensal`` / ``Quinzenal`` (clickable cards; radio may be sr-only).
+    - Data step: text ``Seus Dados``; h3 ``Dados Pessoais``; form labels as in the UI.
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ from utils.navigation import expect_subscribe_url, open_homepage
 
 
 def open_subscribe_from_banner(page: Page) -> None:
-    """Home (via open_homepage) → /subscribe pelo link do header."""
+    """Open home (``open_homepage``) then go to ``/subscribe`` via the header link."""
     open_homepage(page)
     cta = page.get_by_role("banner").get_by_role("link", name="Assinar Agora")
     expect(cta).to_be_visible()
@@ -29,7 +29,7 @@ def open_subscribe_from_banner(page: Page) -> None:
 
 
 def ensure_plan_selected(page: Page) -> None:
-    """Confirma plano e avança para recorrência (UI: clicar em Plano Selecionado ou Selecionar Plano)."""
+    """Ensure a plan is selected (``Plano Selecionado`` or click ``Selecionar Plano``)."""
     expect(page.get_by_role("heading", name="Escolha o seu plano", level=2)).to_be_visible()
     plano_sel = page.get_by_role("button", name="Plano Selecionado")
     if plano_sel.count() > 0:
@@ -41,7 +41,7 @@ def ensure_plan_selected(page: Page) -> None:
 
 
 def click_avancar(page: Page) -> None:
-    """Clica no botão Avançar da etapa atual (auto-retry via expect)."""
+    """Click the ``Avançar`` button on the current step (auto-retry via ``expect``)."""
     avancar = page.get_by_role("button", name=re.compile(r"^\s*Avançar\s*$", re.I))
     expect(avancar.first).to_be_visible()
     expect(avancar.first).to_be_enabled()
@@ -49,7 +49,7 @@ def click_avancar(page: Page) -> None:
 
 
 def select_frequencia_mensal(page: Page) -> None:
-    """Seleciona recorrência Mensal (clique na linha do card; o radio é sr-only)."""
+    """Select monthly recurrence by clicking the card row (radio may be sr-only)."""
     mensal = page.get_by_role("radio", name="Mensal A cada 30 dias")
     expect(mensal).to_be_visible()
     page.get_by_role("radiogroup").get_by_text("Mensal", exact=True).click()
@@ -57,8 +57,9 @@ def select_frequencia_mensal(page: Page) -> None:
 
 def expect_dados_pessoais_step(page: Page) -> Locator:
     """
-    Checkpoint: tela "Seus Dados" com seção Dados Pessoais visível.
-    Retorna o heading nível 3 para reutilização nas asserções finais dos testes.
+    Checkpoint: ``Seus Dados`` visible with h3 ``Dados Pessoais``.
+
+    Returns the h3 locator for reuse in assertions.
     """
     expect(page.get_by_text("Seus Dados", exact=True)).to_be_visible()
     dados_pessoais = page.get_by_role("heading", name="Dados Pessoais", level=3)
@@ -68,8 +69,9 @@ def expect_dados_pessoais_step(page: Page) -> Locator:
 
 def go_to_personal_data_step(page: Page) -> None:
     """
-    Abre /subscribe e avança: Plano → Recorrência (Mensal) → clique Avançar até o formulário.
-    Após esta função, chame `expect_dados_pessoais_step(page)` para validar e obter o locator da seção.
+    Open ``/subscribe`` and advance: Plan → Recurrence (monthly) → click ``Avançar`` to the form.
+
+    After this, call ``expect_dados_pessoais_step(page)`` to validate and obtain the section locator.
     """
     open_subscribe_from_banner(page)
     ensure_plan_selected(page)

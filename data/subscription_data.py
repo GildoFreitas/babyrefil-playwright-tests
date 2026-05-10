@@ -1,25 +1,26 @@
 """
-Constantes compartilhadas para testes do fluxo de assinatura (alinhadas a docs/test-cases.md).
+Personal / baby data for subscription tests (aligned with docs/test-cases.md).
+
+UI-facing validation strings are Portuguese literals from the app.
 """
 
-# --- Massa: dados pessoais / bebê (padrão documentação) ---
+# Default personal + baby data (documentation sample).
 SUBSCRIPTION_NOME_COMPLETO = "João da Silva"
 SUBSCRIPTION_EMAIL = "joao.silva@email.com"
 SUBSCRIPTION_TELEFONE = "11999999999"
 SUBSCRIPTION_NOME_BEBE = "Miguel"
 
-# Massa "6 meses" → opção de faixa etária exibida no combobox da UI
+# "6 months" → age band label shown in the UI combobox.
 SUBSCRIPTION_IDADE_FAIXA_OPTION = "3-6 meses"
 
-# --- Validação (trecho estável) ---
+# Stable validation excerpts (exact UI copy).
 VALIDATION_MSG_NOME_COMPLETO_OBRIGATORIO = "Nome completo é obrigatório."
-# Campo vazio dispara validação de e-mail no app (Zod), não o texto "obrigatório".
+# Empty email: Zod shows invalid email, not the word "obrigatório".
 VALIDATION_MSG_EMAIL_OBRIGATORIO = "E-mail inválido."
-# Telefone vazio / curto: mesma lógica (ex.: min(10)); mensagem na UI.
+# Empty / too-short phone: min-length style message in the UI.
 VALIDATION_MSG_TELEFONE_OBRIGATORIO = "Telefone inválido."
-# Mensagens exibidas pelo app (copy com "bebê" em minúsculas no texto de erro).
 VALIDATION_MSG_NOME_BEBE_OBRIGATORIO = "Nome do bebê é obrigatório."
 VALIDATION_MSG_IDADE_BEBE_OBRIGATORIA = "Idade do bebê é obrigatória."
 
-# Placeholder do combobox de idade (CT012 — não selecionado)
+# CT012 — age not selected: combobox placeholder.
 SUBSCRIPTION_IDADE_PLACEHOLDER = "Selecione a faixa etária"
