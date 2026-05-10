@@ -42,7 +42,7 @@ jobs:
         run: playwright install ${{ matrix.browser }} --with-deps
 
       - name: Run E2E tests
-        # Absolute paths: avoids cwd edge cases; conftest.py also mkdirs test-results early
+        # No pytest-html in CI (avoid report path issues); traces/video/screenshots via pytest-playwright
         run: |
           set -euo pipefail
           RESULTS_DIR="${GITHUB_WORKSPACE}/test-results"
@@ -52,11 +52,9 @@ jobs:
             --output="$RESULTS_DIR" \
             --tracing=retain-on-failure \
             --video=retain-on-failure \
-            --screenshot=only-on-failure \
-            --html="$RESULTS_DIR/pytest-report.html" \
-            --self-contained-html
+            --screenshot=only-on-failure
 
-      - name: Upload HTML report, traces, video, and screenshots
+      - name: Upload Playwright artifacts (traces, video, screenshots)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
