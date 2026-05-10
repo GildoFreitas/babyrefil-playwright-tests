@@ -41,21 +41,18 @@ jobs:
       - name: Install Playwright (${{ matrix.browser }} + system deps)
         run: playwright install ${{ matrix.browser }} --with-deps
 
-      # pytest-html does not mkdir parents; pytest-playwright may only create this dir when artifacts exist
-      - name: Ensure test-results directory exists
-        run: mkdir -p test-results
-
       - name: Run E2E tests
-        # Headless in CI; trace/video/screenshot only on failing tests (pytest-playwright)
-        run: >-
-          pytest -v --tb=short
-          --browser=${{ matrix.browser }}
-          --output=test-results
-          --tracing=retain-on-failure
-          --video=retain-on-failure
-          --screenshot=only-on-failure
-          --html=test-results/pytest-report.html
-          --self-contained-html
+        # Same shell: ensure test-results exists before pytest-html opens the report path
+        run: |
+          mkdir -p test-results
+          pytest -v --tb=short \
+            --browser=${{ matrix.browser }} \
+            --output=./test-results \
+            --tracing=retain-on-failure \
+            --video=retain-on-failure \
+            --screenshot=only-on-failure \
+            --html=./test-results/pytest-report.html \
+            --self-contained-html
 
       - name: Upload HTML report, traces, video, and screenshots
         if: failure()
