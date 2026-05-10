@@ -42,16 +42,18 @@ jobs:
         run: playwright install ${{ matrix.browser }} --with-deps
 
       - name: Run E2E tests
-        # Same shell: ensure test-results exists before pytest-html opens the report path
+        # Absolute paths: avoids cwd edge cases; conftest.py also mkdirs test-results early
         run: |
-          mkdir -p test-results
+          set -euo pipefail
+          RESULTS_DIR="${GITHUB_WORKSPACE}/test-results"
+          mkdir -p "$RESULTS_DIR"
           pytest -v --tb=short \
             --browser=${{ matrix.browser }} \
-            --output=./test-results \
+            --output="$RESULTS_DIR" \
             --tracing=retain-on-failure \
             --video=retain-on-failure \
             --screenshot=only-on-failure \
-            --html=./test-results/pytest-report.html \
+            --html="$RESULTS_DIR/pytest-report.html" \
             --self-contained-html
 
       - name: Upload HTML report, traces, video, and screenshots
