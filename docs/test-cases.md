@@ -53,7 +53,7 @@
 
 ---
 
-# 🧪 Casos de Teste - Fluxo de Assinatura
+# 🧪 Casos de Teste - Fluxo de Checkout
 
 ---
 
@@ -78,7 +78,7 @@ Validar o fluxo completo de assinatura com sucesso utilizando dados válidos.
 | 4 | Preencher todos os dados pessoais válidos. | O sistema deve permitir continuar o fluxo. |
 | 5 | Preencher endereço válido. | O sistema deve permitir continuar o fluxo. |
 | 6 | Preencher todos os campos de pagamento com os dados do cartão **Válido (Visa)** da massa de dados.| O sistema deve aceitar os dados corretamente. |
-| 7 | Clicar em "Confirmar Pagamento". | O pagamento deve ser aprovado com sucesso. |
+| 7 | Clicar em "Finalizar Assinatura". | O pagamento deve ser aprovado com sucesso. |
 | 8 | Validar tela de confirmação. | 1. O pagamento é processado com sucesso.
 2. O usuário é redirecionado para a página de confirmação de assinatura.
 3. A página de confirmação exibe o resumo do plano e a data estimada de entrega.
@@ -111,7 +111,7 @@ Validar o comportamento do sistema ao processar pagamento com saldo insuficiente
 | 3 | Preencher dados pessoais válidos. | O sistema deve permitir continuar. |
 | 4 | Preencher endereço válido. | O sistema deve permitir continuar. |
 | 5 | Preencher todos os campos de pagamento com os dados do cartão **Inválido (Saldo Insuf.)** da massa de dados.| Os dados devem ser aceitos para processamento. |
-| 6 | Clicar em "Confirmar Pagamento". | O pagamento deve ser recusado. |
+| 6 | Clicar em "Finalizar Assinatura". | O pagamento deve ser recusado. |
 | 7 | Validar mensagem de erro. | Deve ser exibida a mensagem "**Transação não autorizada. Entre em contato com o emissor do cartão.**" informando falha de pagamento |
 | 8 | Validar permanência na tela de pagamento. | O usuário deve permanecer na etapa de pagamento. |
 

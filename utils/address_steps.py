@@ -39,8 +39,13 @@ def expect_endereco_entrega_step(page: Page) -> Locator:
 
 def go_to_address_step(page: Page) -> None:
     """
-    Abre /subscribe, percorre até Dados Pessoais, preenche campos obrigatórios dessa etapa
-    e clica em Avançar até exibir o formulário de endereço (CEP).
+    Abre /subscribe, percorre até a tela "Seus Dados" e preenche Dados Pessoais + Bebê.
+
+    A tela "Seus Dados" engloba Dados Pessoais, Dados do Bebê e Endereço de Entrega na mesma
+    página, com um único Avançar que valida o form inteiro (Zod) e leva direto a Pagamento.
+    Por isso NÃO clicamos Avançar aqui — a seção de Endereço já está visível desde a chegada
+    nessa tela. Clicar Avançar antes do endereço estar preenchido dispara um flash de erros
+    nos campos de endereço (sem efeito funcional, apenas cosmético).
     """
     go_to_personal_data_step(page)
     expect_dados_pessoais_step(page)
@@ -53,7 +58,6 @@ def go_to_address_step(page: Page) -> None:
     page.get_by_label("Idade do Bebê").click()
     page.get_by_role("option", name=SUBSCRIPTION_IDADE_FAIXA_OPTION).click()
 
-    click_avancar(page)
     expect_endereco_entrega_step(page)
 
 
