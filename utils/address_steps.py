@@ -11,6 +11,11 @@ import re
 
 from playwright.sync_api import Locator, Page, expect
 
+from data.address_data import (
+    ADDRESS_CEP_VALIDO_AUTOCOMPLETE,
+    ADDRESS_COMPLEMENTO,
+    ADDRESS_NUMERO,
+)
 from data.subscription_data import (
     SUBSCRIPTION_EMAIL,
     SUBSCRIPTION_IDADE_FAIXA_OPTION,
@@ -64,3 +69,14 @@ def buscar_endereco_por_cep(page: Page, cep: str) -> None:
     rua = page.get_by_label("Rua")
     # A UI pode manter o logradouro desabilitado após a busca; basta aguardar o valor da API.
     expect(rua).to_have_value(re.compile(r"\S"), timeout=20_000)
+
+
+def complete_endereco_step(page: Page) -> None:
+    """
+    Conclui a etapa de endereço com a massa padrão (CEP + autocomplete + Número/Complemento)
+    e clica em Avançar. Pré-requisito: já estar na etapa "Endereço de Entrega".
+    """
+    buscar_endereco_por_cep(page, ADDRESS_CEP_VALIDO_AUTOCOMPLETE)
+    page.get_by_label("Número").fill(ADDRESS_NUMERO)
+    page.get_by_label("Complemento (Opcional)").fill(ADDRESS_COMPLEMENTO)
+    click_avancar(page)

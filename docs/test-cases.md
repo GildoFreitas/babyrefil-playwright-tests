@@ -493,7 +493,7 @@ Validar que o sistema não permite finalizar assinatura sem preencher corretamen
 4. Usuário selecionou recorrência mensal
 5. Usuário avançou para a etapa "Dados Pessoais"
 6. Preenche todos os campos de forma vália
-7. Usuário avançou para a etpada do pagamento
+7. Usuário avançou para a etapa do pagamento
 
 ### Massa de Dados
 
