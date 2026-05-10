@@ -1,0 +1,41 @@
+# Run Playwright + pytest on push/PR. Tests hit the deployed app (BASE_URL).
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      # Change here or set repository variable BASE_URL (Settings → Secrets and variables → Actions)
+      BASE_URL: https://babyrefil.vercel.app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright (Chromium + system deps)
+        run: playwright install chromium --with-deps
+
+      - name: Run E2E tests
+        # pytest.ini uses --headed; CI has no display — run headless via -o addopts
+        run: pytest -o addopts="-v --tb=short"
