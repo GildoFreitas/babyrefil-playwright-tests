@@ -1,430 +1,427 @@
-# 📄 Documentação Completa de Casos de Teste - BabyRefil
+# 📄 Complete Test Case Documentation - BabyRefil
 
-## 🌐 Ambiente e Dados de Teste
+## 🌐 Environment and Test Data
 
-### URL do Sistema
+### System URL
 
-- **Ambiente de Testes:** `https://babyrefil.vercel.app`
+- **Test Environment:** `https://babyrefil.vercel.app`
 
 ---
 
-# 📦 Planos Disponíveis
+# 📦 Available Plans
 
-| Plano | Valor (por entrega) | Detalhes Principais |
+| Plan | Price (per delivery) | Main Details |
 | --- | --- | --- |
-| **Essencial** | R$ 119,90 | 2 pacotes de fralda premium, 4 pacotes de lenço umedecido, 1 pomada |
-| **Conforto** (Popular) | R$ 219,90 | 4 pacotes de fralda premium, 6 lenços hipoalergênico, 2 pomadas premium, mimos |
-| **Completo** | R$ 319,90 | 6 pacotes de fralda ultra macia, 8 lenços hipoalergênico, 3 pomadas premium, kit cuidados, brinde, frete grátis |
+| **Essencial** | R$ 119,90 | 2 premium diaper packs, 4 wet wipe packs, 1 diaper rash cream |
+| **Conforto** (Popular) | R$ 219,90 | 4 premium diaper packs, 6 hypoallergenic wet wipes, 2 premium creams, bonus items |
+| **Completo** | R$ 319,90 | 6 ultra-soft diaper packs, 8 hypoallergenic wet wipes, 3 premium creams, baby care kit, gift, free shipping |
 
 ---
 
-# 📍 Massa de Dados: Endereço de Entrega
+# 📍 Test Data: Delivery Address
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
 | **CEP** | `04534-011` |
-| **Logradouro** | Rua Joaquim Floriano |
+| **Rua** | Rua Joaquim Floriano |
 | **Número** | 1000 |
-| **Complemento** | 17o andar |
+| **Complemento** | 17th floor |
 | **Bairro** | Itaim Bibi |
 | **Cidade** | São Paulo |
 | **Estado** | SP |
 
 ---
 
-# 👤 Massa de Dados: Dados Pessoais
+# 👤 Test Data: Personal Information
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
-| **Nome Completo** | João da Silva |
+| **Nome completo** | João da Silva |
 | **Email** | joao.silva@email.com |
 | **Telefone** | 11999999999 |
-| **Nome do Bebê** | Miguel |
-| **Idade do Bebê** | 6 meses |
+| **Nome do bebê** | Miguel |
+| **Idade do bebê** | 6 months |
 
 ---
 
-# 💳 Massa de Dados: Cartões de Crédito
+# 💳 Test Data: Credit Cards
 
-| Cenário | Bandeira | Número | CVV | Validade |
+| Scenario | Brand | Number | CVV | Expiration Date |
 | --- | --- | --- | --- | --- |
-| **Válido (Sucesso)** | Visa | `4242424242424242` | `182` | Qualquer data futura |
-| **Inválido (Saldo Insuf.)** | Mastercard | `5555555555554444` | `182` | Qualquer data futura |
+| **Valid (Success)** | Visa | `4242424242424242` | `182` | Any future date |
+| **Invalid (Insufficient Funds)** | Mastercard | `5555555555554444` | `182` | Any future date |
 
 ---
 
-# 🧪 Casos de Teste - Fluxo de Checkout
+# 🧪 Test Cases - Checkout Flow
 
 ---
 
-## CT001: Adesão de Assinatura com Sucesso (Fluxo Completo)
+## CT001: Successful Subscription Checkout (Complete End-to-End Flow)
 
-### Objetivo
+### Objective
 
-Validar o fluxo completo de assinatura com sucesso utilizando dados válidos.
+Verify the complete subscription checkout flow using valid data.
 
-### Pré-condições
+### Preconditions
 
-1. Usuário possui dados válidos de cadastro, endereço e pagamento.
-2. Usuário possui cartão válido.
+1. The user has valid registration, address, and payment data.
+2. The user has a valid credit card.
 
-### Massa de Dados
+### Test Data
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Clicar no botão "Assinar Agora". | O usuário deve ser direcionado para a etapa de seleção de plano. Deve exibir os planos **Essencial, Conforto e Completo.** |
-| 2 | Selecionar um plano disponível. | O usuário deve avançar para seleção de recorrência. |
-| 3 | Selecionar uma recorrência e avançar. | O sistema deve atualizar os valores corretamente e avançar o fluxo. |
-| 4 | Preencher todos os dados pessoais válidos. | O sistema deve permitir continuar o fluxo. |
-| 5 | Preencher endereço válido. | O sistema deve permitir continuar o fluxo. |
-| 6 | Preencher todos os campos de pagamento com os dados do cartão **Válido (Visa)** da massa de dados.| O sistema deve aceitar os dados corretamente. |
-| 7 | Clicar em "Finalizar Assinatura". | O pagamento deve ser aprovado com sucesso. |
-| 8 | Validar tela de confirmação. | 1. O pagamento é processado com sucesso.
-2. O usuário é redirecionado para a página de confirmação de assinatura.
-3. A página de confirmação exibe o resumo do plano e a data estimada de entrega.
-4. Deve ser exibido o numero do pedido no formato **BR1761410590280**.|
+| 1 | Click the "Assinar agora" button. | The user should be redirected to the plan selection step. The Essencial, Conforto, and Completo plans should be displayed. |
+| 2 | Select an available plan. | The user should proceed to the recurrence selection step. |
+| 3 | Select a recurrence option and continue. | The system should correctly update the pricing and proceed with the flow. |
+| 4 | Fill in all valid personal information fields. | The system should allow the user to continue the flow. |
+| 5 | Fill in a valid delivery address. | The system should allow the user to continue the flow. |
+| 6 | Fill in all payment fields using the **Valid (Visa)** card test data. | The system should correctly accept the payment information. |
+| 7 | Click "Finalizar assinatura". | The payment should be successfully approved. |
+| 8 | Verify the confirmation screen. | 1. The payment is successfully processed.<br>2. The user is redirected to the subscription confirmation page.<br>3. The confirmation page displays the plan summary and estimated delivery date.<br>4. An order number should be displayed in the format **BR1761410590280**. |
 
 ---
 
-## CT002: Adesão com Falha de Pagamento (Saldo Insuficiente)
+## CT002: Subscription Checkout Failure Due to Insufficient Funds
 
-### Objetivo
+### Objective
 
-Validar o comportamento do sistema ao processar pagamento com saldo insuficiente.
+Verify the system behavior when processing a payment with insufficient funds.
 
-### Pré-condições
+### Preconditions
 
-1. Usuário possui dados válidos de cadastro e endereço.
-2. Usuário possui cartão inválido para saldo insuficiente.
+1. The user has valid registration and address information.
+2. The user has a credit card configured for the insufficient funds scenario.
 
-### Massa de Dados
+### Test Data
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
-| Cartão | 5555555555554444 |
-| Cenário | Saldo insuficiente |
+| Credit Card | 5555555555554444 |
+| Scenario | Insufficient funds |
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Iniciar fluxo de assinatura. | A tela de seleção de plano deve ser exibida. Deve exibir os planos **Essencial, Conforto e Completo.**|
-| 2 | Selecionar plano e recorrência. | O fluxo deve avançar corretamente. |
-| 3 | Preencher dados pessoais válidos. | O sistema deve permitir continuar. |
-| 4 | Preencher endereço válido. | O sistema deve permitir continuar. |
-| 5 | Preencher todos os campos de pagamento com os dados do cartão **Inválido (Saldo Insuf.)** da massa de dados.| Os dados devem ser aceitos para processamento. |
-| 6 | Clicar em "Finalizar Assinatura". | O pagamento deve ser recusado. |
-| 7 | Validar mensagem de erro. | Deve ser exibida a mensagem "**Transação não autorizada. Entre em contato com o emissor do cartão.**" informando falha de pagamento |
-| 8 | Validar permanência na tela de pagamento. | O usuário deve permanecer na etapa de pagamento. |
+| 1 | Start the subscription flow. | The plan selection screen should be displayed. The Essencial, Conforto, and Completo plans should be visible. |
+| 2 | Select a plan and recurrence option. | The flow should proceed correctly. |
+| 3 | Fill in valid personal information. | The system should allow the user to continue. |
+| 4 | Fill in a valid address. | The system should allow the user to continue. |
+| 5 | Fill in all payment fields using the **Invalid (Insufficient Funds)** card test data. | The payment information should be accepted for processing. |
+| 6 | Click "Finalizar assinatura". | The payment should be declined. |
+| 7 | Verify the error message. | The message "**Transação não autorizada. Entre em contato com a administradora do seu cartão.**" should be displayed informing the payment failure. |
+| 8 | Verify that the user remains on the payment screen. | The user should remain on the payment step. |
 
 ---
 
-# 🧪 Casos de Teste - Navegação
+# 🧪 Test Cases - Navigation
 
 ---
 
-## CT003: Validar Navegação do Botão "Como Funciona"
+## CT003: Verify "Como funciona" Button Navigation
 
-### Objetivo
+### Objective
 
-Validar que o botão "Como Funciona" redireciona corretamente o usuário para a seção correspondente da página.
+Verify that the "Como funciona" button correctly redirects the user to the corresponding page section.
 
-### Pré-condições
+### Preconditions
 
-1. Usuário deve acessar a homepage do sistema.
+1. The user accesses the system homepage.
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Acessar a homepage do BabyRefil. | A homepage deve ser carregada corretamente. |
-| 2 | Clicar no botão "Como Funciona" no menu superior. | O usuário deve ser direcionado para a seção "Como Funciona". |
-| 3 | Validar conteúdo da seção exibida. | As informações da seção devem ser exibidas corretamente. |
+| 1 | Access the BabyRefil homepage. | The homepage should load successfully. |
+| 2 | Click the "Como funciona" button in the top navigation menu. | The user should be redirected to the "Como funciona" section. |
+| 3 | Verify the displayed section content. | The section information should be displayed correctly. |
 
 ---
 
-## CT004: Validar Navegação do Botão "Planos"
+## CT004: Verify "Planos" Button Navigation
 
-### Objetivo
+### Objective
 
-Validar que o botão "Planos" redireciona corretamente o usuário para a seção de planos.
+Verify that the "Planos" button correctly redirects the user to the plans section.
 
-### Pré-condições
+### Preconditions
 
-1. Usuário deve acessar a homepage do sistema.
+1. The user accesses the system homepage.
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Acessar a homepage do BabyRefil. | A homepage deve ser carregada corretamente. |
-| 2 | Clicar no botão "Planos". | O usuário deve ser direcionado para a seção de planos. |
-| 3 | Validar planos disponíveis. | Os planos Essencial, Conforto e Completo devem ser exibidos corretamente. |
+| 1 | Access the BabyRefil homepage. | The homepage should load successfully. |
+| 2 | Click the "Planos" button. | The user should be redirected to the plans section. |
+| 3 | Verify the available plans. | The Essencial, Conforto, and Completo plans should be displayed correctly. |
 
 ---
 
-## CT005: Validar Navegação do Botão "FAQ"
+## CT005: Verify "FAQ" Button Navigation
 
-### Objetivo
+### Objective
 
-Validar que o botão "FAQ" redireciona corretamente o usuário para a seção FAQ.
+Verify that the "FAQ" button correctly redirects the user to the FAQ section.
 
-### Pré-condições
+### Preconditions
 
-1. Usuário deve acessar a homepage do sistema.
+1. The user accesses the system homepage.
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Acessar a homepage do BabyRefil. | A homepage deve ser carregada corretamente. |
-| 2 | Clicar no botão "FAQ". | O usuário deve ser direcionado para a seção FAQ. |
-| 3 | Validar conteúdo FAQ. | As perguntas e respostas devem ser exibidas corretamente. |
+| 1 | Access the BabyRefil homepage. | The homepage should load successfully. |
+| 2 | Click the "FAQ" button. | The user should be redirected to the FAQ section. |
+| 3 | Verify the FAQ section content. | The questions and answers should be displayed correctly. |
 
 ---
 
-## CT006: Validar Botão "Assine Agora" do Header
+## CT006: Verify Header "Assinar agora" Button
 
-### Objetivo
+### Objective
 
-Validar que o botão "Assine Agora" do topo da página inicia corretamente o fluxo de assinatura.
+Verify that the header "Assinar agora" button correctly starts the subscription flow.
 
-### Pré-condições
+### Preconditions
 
-1. Usuário deve acessar a homepage do sistema.
+1. The user accesses the system homepage.
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Acessar a homepage do BabyRefil. | A homepage deve ser carregada corretamente. |
-| 2 | Clicar no botão "Assine Agora" do header. | O usuário deve ser direcionado para o fluxo de assinatura. |
-| 3 | Validar tela de seleção de planos. | Os planos devem ser exibidos corretamente. |
+| 1 | Access the BabyRefil homepage. | The homepage should load successfully. |
+| 2 | Click the header "Assinar agora" button. | The user should be redirected to the subscription flow. |
+| 3 | Verify the plan selection screen. | The available plans should be displayed correctly. |
 
 ---
 
-## CT007: Validar Botão "Assine Agora" da Seção de Planos
+## CT007: Verify "Assinar agora" Button in the Plans Section
 
-### Objetivo
+### Objective
 
-Validar que o botão "Assine Agora" da seção de planos inicia corretamente o fluxo de assinatura.
+Verify that the "Assinar agora" button in the plans section correctly starts the subscription flow.
 
-### Pré-condições
+### Preconditions
 
-1. Usuário deve acessar a homepage do sistema.
+1. The user accesses the system homepage.
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Acessar a homepage do BabyRefil. | A homepage deve ser carregada corretamente. |
-| 2 | Navegar até a seção de planos. | A seção deve ser exibida corretamente. |
-| 3 | Clicar em "Assine Agora" de um plano disponível. | O fluxo de assinatura deve iniciar corretamente. |
-| 4 | Validar etapa de recorrência. | A tela de recorrência deve ser exibida corretamente. |
+| 1 | Access the BabyRefil homepage. | The homepage should load successfully. |
+| 2 | Navigate to the plans section. | The section should be displayed correctly. |
+| 3 | Click "Assinar agora" for an available plan. | The subscription flow should start successfully. |
+| 4 | Verify the recurrence step. | The recurrence screen should be displayed correctly. |
 
 ---
 
-# 🧪 Casos de Teste - Dados Pessoais
+# 🧪 Test Cases - Personal Information
 
 ---
 
-## CT008: Validar Campo "Nome Completo" Obrigatório
+## CT008: Verify Required "Nome completo" Field
 
-### Objetivo
+### Objective
 
-Validar que o sistema não permite continuar sem preencher o campo "Nome Completo".
+Verify that the system does not allow the user to continue without filling in the "Nome completo" field.
 
-### Pré-Condições
+### Preconditions
 
-1. Usuário acessou a homepage
-2. Usuário clicou em "Assinar Agora"
-3. Usuário selecionou um plano válido
-4. Usuário selecionou recorrência mensal
-5. Usuário avançou para a etapa "Dados Pessoais"
+1. The user accessed the homepage.
+2. The user clicked "Assinar agora".
+3. The user selected a valid plan.
+4. The user selected monthly recurrence.
+5. The user proceeded to the "Informações pessoais" step.
 
-### Massa de Dados
+### Test Data
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
-| Nome Completo | Em branco |
+| Nome completo | Em branco |
 | Email | joao.silva@email.com |
 | Telefone | 11999999999 |
-| Nome do Bebê | Miguel |
-| Idade do Bebê | 6 meses |
+| Nome do bebê | Miguel |
+| Idade do bebê | 6 months |
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Preencher todos os campos obrigatórios exceto "Nome Completo". | O formulário deve permanecer incompleto. |
-| 2 | Clicar em avançar. | O sistema deve impedir o avanço do fluxo. |
-| 3 | Validar mensagem de erro. | Deve ser exibida mensagem indicando campo obrigatório. |
+| 1 | Fill in all required fields except "Nome completo". | The form should remain incomplete. |
+| 2 | Click "Continuar". | The system should prevent the user from proceeding. |
+| 3 | Verify the error message. | A required field validation message should be displayed. |
 
 ---
 
-## CT009: Validar Campo "Email" Obrigatório
+## CT009: Verify Required "Email" Field
 
-### Objetivo
+### Objective
 
-Validar que o sistema não permite continuar sem preencher o campo "Email".
+Verify that the system does not allow the user to continue without filling in the "Email" field.
 
-### Pré-Condições
+### Preconditions
 
-1. Usuário acessou a homepage
-2. Usuário clicou em "Assinar Agora"
-3. Usuário selecionou um plano válido
-4. Usuário selecionou recorrência mensal
-5. Usuário avançou para a etapa "Dados Pessoais"
+1. The user accessed the homepage.
+2. The user clicked "Assinar agora".
+3. The user selected a valid plan.
+4. The user selected monthly recurrence.
+5. The user proceeded to the "Informações pessoais" step.
 
-### Massa de Dados
+### Test Data
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
-| Nome Completo | João da Silva |
+| Nome completo | João da Silva |
 | Email | Em branco |
 | Telefone | 11999999999 |
-| Nome do Bebê | Miguel |
-| Idade do Bebê | 6 meses |
+| Nome do bebê | Miguel |
+| Idade do bebê | 6 months |
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Preencher todos os campos obrigatórios exceto "Email". | O formulário deve permanecer incompleto. |
-| 2 | Clicar em avançar. | O sistema deve impedir o avanço do fluxo. |
-| 3 | Validar mensagem de erro. | Deve ser exibida mensagem indicando campo obrigatório. |
+| 1 | Fill in all required fields except "Email". | The form should remain incomplete. |
+| 2 | Click "Continuar". | The system should prevent the user from proceeding. |
+| 3 | Verify the error message. | A required field validation message should be displayed. |
 
 ---
 
-## CT010: Validar Campo "Telefone" Obrigatório
+## CT010: Verify Required "Telefone" Field
 
-### Objetivo
+### Objective
 
-Validar que o sistema não permite continuar sem preencher o campo "Telefone".
+Verify that the system does not allow the user to continue without filling in the "Telefone" field.
 
-### Pré-Condições
+### Preconditions
 
-1. Usuário acessou a homepage
-2. Usuário clicou em "Assinar Agora"
-3. Usuário selecionou um plano válido
-4. Usuário selecionou recorrência mensal
-5. Usuário avançou para a etapa "Dados Pessoais"
+1. The user accessed the homepage.
+2. The user clicked "Assinar agora".
+3. The user selected a valid plan.
+4. The user selected monthly recurrence.
+5. The user proceeded to the "Informações pessoais" step.
 
-### Massa de Dados
+### Test Data
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
-| Nome Completo | João da Silva |
+| Nome completo | João da Silva |
 | Email | joao.silva@email.com |
 | Telefone | Em branco |
-| Nome do Bebê | Miguel |
-| Idade do Bebê | 6 meses |
+| Nome do bebê | Miguel |
+| Idade do bebê | 6 months |
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Preencher todos os campos obrigatórios exceto "Telefone". | O formulário deve permanecer incompleto. |
-| 2 | Clicar em avançar. | O sistema deve impedir o avanço do fluxo. |
-| 3 | Validar mensagem de erro. | Deve ser exibida mensagem indicando campo obrigatório. |
+| 1 | Fill in all required fields except "Telefone". | The form should remain incomplete. |
+| 2 | Click "Continuar". | The system should prevent the user from proceeding. |
+| 3 | Verify the error message. | A required field validation message should be displayed. |
 
 ---
 
-## CT011: Validar Campo "Nome do Bebê" Obrigatório
+## CT011: Verify Required "Nome do bebê" Field
 
-### Objetivo
+### Objective
 
-Validar que o sistema não permite continuar sem preencher o campo "Nome do Bebê".
+Verify that the system does not allow the user to continue without filling in the "Nome do bebê" field.
 
-### Pré-Condições
+### Preconditions
 
-1. Usuário acessou a homepage
-2. Usuário clicou em "Assinar Agora"
-3. Usuário selecionou um plano válido
-4. Usuário selecionou recorrência mensal
-5. Usuário avançou para a etapa "Dados Pessoais"
+1. The user accessed the homepage.
+2. The user clicked "Assinar agora".
+3. The user selected a valid plan.
+4. The user selected monthly recurrence.
+5. The user proceeded to the "Informações pessoais" step.
 
-### Massa de Dados
+### Test Data
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
-| Nome Completo | João da Silva |
+| Nome completo | João da Silva |
 | Email | joao.silva@email.com |
 | Telefone | 11999999999 |
-| Nome do Bebê | Em branco |
-| Idade do Bebê | 6 meses |
+| Nome do bebê | Em branco |
+| Idade do bebê | 6 months |
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Preencher todos os campos obrigatórios exceto "Nome do Bebê". | O formulário deve permanecer incompleto. |
-| 2 | Clicar em avançar. | O sistema deve impedir o avanço do fluxo. |
-| 3 | Validar mensagem de erro. | Deve ser exibida mensagem indicando campo obrigatório. |
+| 1 | Fill in all required fields except "Nome do bebê". | The form should remain incomplete. |
+| 2 | Click "Continuar". | The system should prevent the user from proceeding. |
+| 3 | Verify the error message. | A required field validation message should be displayed. |
 
 ---
 
-## CT012: Validar Campo "Idade do Bebê" Obrigatório
+## CT012: Verify Required "Idade do bebê" Field
 
-### Objetivo
+### Objective
 
-Validar que o sistema não permite continuar sem selecionar a idade do bebê.
+Verify that the system does not allow the user to continue without selecting the baby's age.
 
-### Pré-Condições
+### Preconditions
 
-1. Usuário acessou a homepage
-2. Usuário clicou em "Assinar Agora"
-3. Usuário selecionou um plano válido
-4. Usuário selecionou recorrência mensal
-5. Usuário avançou para a etapa "Dados Pessoais"
+1. The user accessed the homepage.
+2. The user clicked "Assinar agora".
+3. The user selected a valid plan.
+4. The user selected monthly recurrence.
+5. The user proceeded to the "Informações pessoais" step.
 
-### Massa de Dados
+### Test Data
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
-| Nome Completo | João da Silva |
+| Nome completo | João da Silva |
 | Email | joao.silva@email.com |
 | Telefone | 11999999999 |
-| Nome do Bebê | Miguel |
-| Idade do Bebê | Não selecionado |
+| Nome do bebê | Miguel |
+| Idade do bebê | Não selecionado |
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Preencher todos os campos obrigatórios exceto "Idade do Bebê". | O formulário deve permanecer incompleto. |
-| 2 | Clicar em avançar. | O sistema deve impedir o avanço do fluxo. |
-| 3 | Validar mensagem de erro. | Deve ser exibida mensagem indicando campo obrigatório. |
+| 1 | Fill in all required fields except "Idade do bebê". | The form should remain incomplete. |
+| 2 | Click "Continuar". | The system should prevent the user from proceeding. |
+| 3 | Verify the error message. | A required field validation message should be displayed. |
 
 ---
 
-# 🧪 Casos de Teste - Endereço
+# 🧪 Test Cases - Address
 
 ---
 
-## CT013: Validar CEP Obrigatório ou Inválido
+## CT013: Verify Required or Invalid CEP
 
-### Pré-Condições
+### Objective
 
-1. Usuário acessou a homepage
-2. Usuário clicou em "Assinar Agora"
-3. Usuário selecionou um plano válido
-4. Usuário selecionou recorrência mensal
-5. Usuário avançou para a etapa "Dados Pessoais"
+Verify that the system does not allow the user to continue with a blank or invalid CEP.
 
-### Objetivo
+### Preconditions
 
-Validar que o sistema não permite continuar com CEP vazio ou inválido.
+1. The user accessed the homepage.
+2. The user clicked "Assinar agora".
+3. The user selected a valid plan.
+4. The user selected monthly recurrence.
+5. The user proceeded to the "Endereço" step.
 
-### Massa de Dados
+### Test Data
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
 | CEP | Em branco ou inválido |
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Deixar o campo CEP vazio ou preencher com CEP inválido. | O formulário deve permanecer inválido. |
-| 2 | Clicar em avançar. | O sistema deve impedir o avanço do fluxo. |
-| 3 | Validar mensagem de erro. | Deve ser exibida mensagem indicando CEP inválido ou obrigatório. |
+| 1 | Leave the CEP field blank or enter an invalid CEP. | The form should remain invalid. |
+| 2 | Click "Continuar". | The system should prevent the user from proceeding. |
+| 3 | Verify the error message. | A validation message indicating invalid or required CEP should be displayed. |
 
 ---
 
-## CT014: Validar Preenchimento Automático de Endereço pelo CEP
+## CT014: Verify Automatic Address Autofill by CEP
 
-### Objetivo
+### Objective
 
-Validar que o sistema preenche automaticamente os dados do endereço após informar um CEP válido.
+Verify that the system automatically fills in the address information after entering a valid CEP.
 
-### Pré-Condições
+### Preconditions
 
-1. Usuário acessou a homepage
-2. Usuário clicou em "Assinar Agora"
-3. Usuário selecionou um plano válido
-4. Usuário selecionou recorrência mensal
-5. Usuário avançou para a etapa "Dados Pessoais"
+1. The user accessed the homepage.
+2. The user clicked "Assinar agora".
+3. The user selected a valid plan.
+4. The user selected monthly recurrence.
+5. The user proceeded to the "Endereço" step.
 
-### Massa de Dados
+### Test Data
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
 | CEP | 04534-011 |
 | Rua | Rua Joaquim Floriano |
@@ -432,32 +429,32 @@ Validar que o sistema preenche automaticamente os dados do endereço após infor
 | Cidade | São Paulo |
 | Estado | SP |
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Informar CEP válido. | O sistema não deve fazer nada |
-| 2 | Clicar no botão "Buscar" | Os campos devem ser preenchidos automaticamente. |
-| 3 | Aguardar preenchimento automático. | Os campos devem ser preenchidos automaticamente. |
-| 4 | Validar dados preenchidos. | Rua, bairro, cidade e estado devem conter os valores corretos. |
+| 1 | Enter a valid CEP. | No automatic action should occur before clicking the search button. |
+| 2 | Click the "Buscar CEP" button. | The address fields should be automatically populated. |
+| 3 | Wait for the autofill process to complete. | The address fields should be automatically populated. |
+| 4 | Verify the populated data. | Rua, bairro, cidade, and estado fields should contain the correct values. |
 
 ---
 
-## CT015: Validar Campos Obrigatórios do Endereço
+## CT015: Verify Required Address Fields
 
-### Objetivo
+### Objective
 
-Validar que o sistema não permite continuar sem preencher os campos obrigatórios do endereço.
+Verify that the system does not allow the user to continue without filling in the required address fields.
 
-### Pré-Condições
+### Preconditions
 
-1. Usuário acessou a homepage
-2. Usuário clicou em "Assinar Agora"
-3. Usuário selecionou um plano válido
-4. Usuário selecionou recorrência mensal
-5. Usuário avançou para a etapa "Dados Pessoais"
+1. The user accessed the homepage.
+2. The user clicked "Assinar agora".
+3. The user selected a valid plan.
+4. The user selected monthly recurrence.
+5. The user proceeded to the "Endereço" step.
 
-### Massa de Dados
+### Test Data
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
 | CEP | 04534-011 |
 | Rua | Em branco |
@@ -466,47 +463,47 @@ Validar que o sistema não permite continuar sem preencher os campos obrigatóri
 | Cidade | Em branco |
 | Estado | Em branco |
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Preencher CEP válido. | O sistema não deve fazer nada |
-| 2 | Deixar campos obrigatórios em branco. | O formulário deve permanecer incompleto. |
-| 3 | Clicar em avançar. | O sistema deve impedir o avanço do fluxo. |
-| 4 | Validar mensagens de erro. | Deve ser exibida mensagem indicando campos obrigatórios. |
+| 1 | Enter a valid CEP. | No automatic action should occur before clicking the search button. |
+| 2 | Leave required address fields blank. | The form should remain incomplete. |
+| 3 | Click "Continuar". | The system should prevent the user from proceeding. |
+| 4 | Verify the error messages. | Validation messages indicating required fields should be displayed. |
 
 ---
 
-# 🧪 Casos de Teste - Pagamento
+# 🧪 Test Cases - Payment
 
 ---
 
-## CT016: Validar Campos Obrigatórios do Cartão
+## CT016: Verify Required Credit Card Fields
 
-### Objetivo
+### Objective
 
-Validar que o sistema não permite finalizar assinatura sem preencher corretamente os dados do cartão.
+Verify that the system does not allow the user to complete the subscription without correctly filling in the credit card information.
 
-### Pré-Condições
+### Preconditions
 
-1. Usuário acessou a homepage
-2. Usuário clicou em "Assinar Agora"
-3. Usuário selecionou um plano válido
-4. Usuário selecionou recorrência mensal
-5. Usuário avançou para a etapa "Dados Pessoais"
-6. Preenche todos os campos de forma vália
-7. Usuário avançou para a etapa do pagamento
+1. The user accessed the homepage.
+2. The user clicked "Assinar agora".
+3. The user selected a valid plan.
+4. The user selected monthly recurrence.
+5. The user proceeded to the "Pagamento" step.
+6. The user filled in all previous fields with valid information.
+7. The user proceeded to the payment step.
 
-### Massa de Dados
+### Test Data
 
-| Campo | Valor |
+| Field | Value |
 | --- | --- |
-| Número do Cartão | Em branco ou inválido |
-| Nome do Titular | Em branco |
+| Número do cartão | Em branco ou inválido |
+| Nome impresso no cartão | Em branco |
 | Validade | Inválida |
-| CVV | Inválido |
-| CPF | Inválido |
+| CVV | Invalid |
+| CPF | Invalid |
 
-| Passo | Ação | Resultado Esperado |
+| Step | Action | Expected Result |
 | --- | --- | --- |
-| 1 | Deixar campos do cartão vazios ou inválidos. | O formulário deve permanecer inválido. |
-| 2 | Clicar em "Confirmar Pagamento". | O sistema deve impedir a finalização da assinatura. |
-| 3 | Validar mensagens de erro. | Deve ser exibida mensagem indicando campos obrigatórios ou inválidos. |
+| 1 | Leave credit card fields blank or invalid. | The form should remain invalid. |
+| 2 | Click "Confirmar pagamento". | The system should prevent the subscription from being completed. |
+| 3 | Verify the error messages. | Validation messages indicating required or invalid fields should be displayed. |
