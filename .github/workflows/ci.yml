@@ -42,7 +42,7 @@ jobs:
         run: playwright install ${{ matrix.browser }} --with-deps
 
       - name: Run E2E tests
-        # No pytest-html in CI (avoid report path issues); traces/video/screenshots via pytest-playwright
+        # HTML at workspace root (parent always exists); Playwright artifacts in test-results/
         run: |
           set -euo pipefail
           RESULTS_DIR="${GITHUB_WORKSPACE}/test-results"
@@ -52,13 +52,17 @@ jobs:
             --output="$RESULTS_DIR" \
             --tracing=retain-on-failure \
             --video=retain-on-failure \
-            --screenshot=only-on-failure
+            --screenshot=only-on-failure \
+            --html="${GITHUB_WORKSPACE}/pytest-report.html" \
+            --self-contained-html
 
-      - name: Upload Playwright artifacts (traces, video, screenshots)
+      - name: Upload HTML report and Playwright artifacts
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: e2e-${{ matrix.browser }}
-          path: test-results/
+          path: |
+            pytest-report.html
+            test-results/
           if-no-files-found: ignore
           retention-days: 14
