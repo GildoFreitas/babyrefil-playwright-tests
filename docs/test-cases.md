@@ -507,3 +507,7 @@ Verify that the system does not allow the user to complete the subscription with
 | 1 | Leave credit card fields blank or invalid. | The form should remain invalid. |
 | 2 | Click "Finalizar Assinatura". | The system should prevent the subscription from being completed. |
 | 3 | Verify the error messages. | Validation messages indicating required or invalid fields should be displayed. |
+
+---
+
+Based on Fernando Papito's course: **Playwright MCP: Seu Copiloto em Testes**.

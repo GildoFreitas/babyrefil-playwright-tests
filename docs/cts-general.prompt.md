@@ -217,4 +217,4 @@
 
 ---
 
-Based on Fernando Papito's course: **"Playwright MCP: Seu Copiloto em Testes"**.
+Based on Fernando Papito's course: **Playwright MCP: Seu Copiloto em Testes**.
