@@ -16,6 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
     env:
       # Change here or set repository variable BASE_URL (Settings → Secrets and variables → Actions)
       BASE_URL: https://babyrefil.vercel.app
@@ -33,9 +38,26 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      - name: Install Playwright (Chromium + system deps)
-        run: playwright install chromium --with-deps
+      - name: Install Playwright (${{ matrix.browser }} + system deps)
+        run: playwright install ${{ matrix.browser }} --with-deps
 
       - name: Run E2E tests
-        # pytest.ini uses --headed; CI has no display — run headless via -o addopts
-        run: pytest -o addopts="-v --tb=short"
+        # Headless in CI; trace/video/screenshot only on failing tests (pytest-playwright)
+        run: >-
+          pytest -v --tb=short
+          --browser=${{ matrix.browser }}
+          --output=test-results
+          --tracing=retain-on-failure
+          --video=retain-on-failure
+          --screenshot=only-on-failure
+          --html=test-results/pytest-report.html
+          --self-contained-html
+
+      - name: Upload HTML report, traces, video, and screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-${{ matrix.browser }}
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 14
