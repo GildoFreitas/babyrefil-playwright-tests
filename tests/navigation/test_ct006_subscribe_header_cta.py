@@ -23,7 +23,7 @@ from utils.navigation import expect_subscribe_url, open_homepage
 
 _HEADER_SUBSCRIBE_LINK = "Assinar Agora"
 
-def test_ct006_header_assinar_agora_opens_subscribe_plan_step(page: Page):
+def test_ct006_subscribe_header_opens_plan_step(page: Page):
     open_homepage(page)
 
     banner = page.get_by_role("banner")

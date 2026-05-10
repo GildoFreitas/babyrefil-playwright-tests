@@ -11,7 +11,7 @@ Flow:
     Enter valid CEP → click ``Buscar`` → assert ``Rua``, ``Bairro``, ``Cidade``, ``Estado``.
 
 Flake risks:
-    - CEP API latency; ``buscar_endereco_por_cep`` uses an explicit timeout on the ``Rua`` field.
+    - CEP API latency; ``lookup_address_by_cep`` uses an explicit timeout on the ``Rua`` field.
 """
 
 from __future__ import annotations
@@ -25,15 +25,15 @@ from data.address_data import (
     ADDRESS_ESTADO_ESPERADO,
     ADDRESS_RUA_ESPERADA,
 )
-from utils.address_steps import buscar_endereco_por_cep, expect_endereco_entrega_step, go_to_address_step
+from utils.address_steps import lookup_address_by_cep, expect_delivery_address_heading, go_to_address_step
 from utils.navigation import expect_subscribe_url
 
 
-def test_ct014_buscar_cep_preenche_rua_bairro_cidade_estado(page: Page):
+def test_ct014_cep_lookup_fills_street_neighborhood_city_state(page: Page):
     go_to_address_step(page)
-    endereco = expect_endereco_entrega_step(page)
+    delivery_address_heading = expect_delivery_address_heading(page)
 
-    buscar_endereco_por_cep(page, ADDRESS_CEP_VALIDO_AUTOCOMPLETE)
+    lookup_address_by_cep(page, ADDRESS_CEP_VALIDO_AUTOCOMPLETE)
 
     expect(page.get_by_label("CEP")).to_have_value(ADDRESS_CEP_VALIDO_AUTOCOMPLETE)
     expect(page.get_by_label("Rua")).to_have_value(ADDRESS_RUA_ESPERADA)
@@ -41,5 +41,5 @@ def test_ct014_buscar_cep_preenche_rua_bairro_cidade_estado(page: Page):
     expect(page.get_by_label("Cidade")).to_have_value(ADDRESS_CIDADE_ESPERADA)
     expect(page.get_by_label("Estado")).to_have_value(ADDRESS_ESTADO_ESPERADO)
 
-    expect(endereco).to_be_visible()
+    expect(delivery_address_heading).to_be_visible()
     expect_subscribe_url(page)

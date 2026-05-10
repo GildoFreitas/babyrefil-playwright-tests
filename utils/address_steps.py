@@ -24,17 +24,17 @@ from data.subscription_data import (
     SUBSCRIPTION_TELEFONE,
 )
 from utils.subscription_steps import (
-    click_avancar,
-    expect_dados_pessoais_step,
+    click_next,
+    expect_personal_data_step,
     go_to_personal_data_step,
 )
 
 
-def expect_endereco_entrega_step(page: Page) -> Locator:
+def expect_delivery_address_heading(page: Page) -> Locator:
     """Checkpoint: h3 ``Endereço de Entrega`` is visible."""
-    endereco = page.get_by_role("heading", name="Endereço de Entrega", level=3)
-    expect(endereco).to_be_visible()
-    return endereco
+    heading = page.get_by_role("heading", name="Endereço de Entrega", level=3)
+    expect(heading).to_be_visible()
+    return heading
 
 
 def go_to_address_step(page: Page) -> None:
@@ -47,7 +47,7 @@ def go_to_address_step(page: Page) -> None:
     before the address is complete can flash transient address errors (cosmetic only).
     """
     go_to_personal_data_step(page)
-    expect_dados_pessoais_step(page)
+    expect_personal_data_step(page)
 
     page.get_by_label("Nome Completo").fill(SUBSCRIPTION_NOME_COMPLETO)
     page.get_by_label("E-mail").fill(SUBSCRIPTION_EMAIL)
@@ -57,10 +57,10 @@ def go_to_address_step(page: Page) -> None:
     page.get_by_label("Idade do Bebê").click()
     page.get_by_role("option", name=SUBSCRIPTION_IDADE_FAIXA_OPTION).click()
 
-    expect_endereco_entrega_step(page)
+    expect_delivery_address_heading(page)
 
 
-def buscar_endereco_por_cep(page: Page, cep: str) -> None:
+def lookup_address_by_cep(page: Page, cep: str) -> None:
     """Fill CEP, click ``Buscar``, wait until ``Rua`` has a non-empty value from the API."""
     page.get_by_label("CEP").fill(cep)
     buscar = page.get_by_role("button", name="Buscar")
@@ -72,9 +72,9 @@ def buscar_endereco_por_cep(page: Page, cep: str) -> None:
     expect(rua).to_have_value(re.compile(r"\S"), timeout=20_000)
 
 
-def complete_endereco_step(page: Page) -> None:
+def complete_address_step(page: Page) -> None:
     """Complete address with default CEP lookup + number/complement, then click ``Avançar``."""
-    buscar_endereco_por_cep(page, ADDRESS_CEP_VALIDO_AUTOCOMPLETE)
+    lookup_address_by_cep(page, ADDRESS_CEP_VALIDO_AUTOCOMPLETE)
     page.get_by_label("Número").fill(ADDRESS_NUMERO)
     page.get_by_label("Complemento (Opcional)").fill(ADDRESS_COMPLEMENTO)
-    click_avancar(page)
+    click_next(page)

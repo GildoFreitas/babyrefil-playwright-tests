@@ -18,14 +18,14 @@ import re
 from playwright.sync_api import Page, expect
 from utils.navigation import open_homepage
 
-def test_ct003_como_funciona_header_navigates_to_how_it_works_section(page: Page):
+def test_ct003_how_it_works_header_navigation(page: Page):
 
     open_homepage(page)
 
 
-    como_funciona = page.get_by_role("link", name="Como Funciona")
-    expect(como_funciona).to_be_visible()
-    como_funciona.click()
+    how_it_works_link = page.get_by_role("link", name="Como Funciona")
+    expect(how_it_works_link).to_be_visible()
+    how_it_works_link.click()
 
     expect(page).to_have_url(re.compile(r"#how-it-works"))
 

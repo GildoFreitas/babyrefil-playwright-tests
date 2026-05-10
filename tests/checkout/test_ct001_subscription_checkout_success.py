@@ -30,25 +30,25 @@ from data.payment_data import (
     PAYMENT_DATA_ENTREGA_REGEX,
 )
 from utils.payment_steps import (
-    click_finalizar_assinatura,
-    expect_assinatura_confirmada,
-    expect_pagamento_step,
-    fill_cartao,
+    click_finish_subscription,
+    expect_subscription_confirmed,
+    expect_payment_step,
+    fill_card_form,
     go_to_payment_step,
 )
 
 
-def test_ct001_assinatura_com_sucesso_fluxo_completo(page: Page):
+def test_ct001_successful_checkout_end_to_end(page: Page):
     go_to_payment_step(page)
-    expect_pagamento_step(page)
+    expect_payment_step(page)
 
-    fill_cartao(page, numero=PAYMENT_CARD_VISA_VALIDO)
-    click_finalizar_assinatura(page)
+    fill_card_form(page, card_number=PAYMENT_CARD_VISA_VALIDO)
+    click_finish_subscription(page)
 
-    confirmada = expect_assinatura_confirmada(page)
+    confirmed_heading = expect_subscription_confirmed(page)
 
     for heading in ("Plano", "Frequência", "Endereço de Entrega", "Próxima Entrega"):
         expect(page.get_by_role("heading", name=heading, level=3)).to_be_visible()
 
     expect(page.get_by_text(PAYMENT_DATA_ENTREGA_REGEX)).to_be_visible()
-    expect(confirmada).to_be_visible()
+    expect(confirmed_heading).to_be_visible()

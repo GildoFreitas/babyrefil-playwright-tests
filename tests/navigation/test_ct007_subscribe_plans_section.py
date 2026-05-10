@@ -28,12 +28,12 @@ from utils.navigation import expect_subscribe_url, open_homepage
 
 _PLANS_SECTION_CTA = "Assinar agora"
 
-def test_ct007_planos_section_assinar_agora_opens_subscribe_flow(page: Page):
+def test_ct007_plans_section_subscribe_opens_flow(page: Page):
     open_homepage(page)
 
-    planos_menu = page.get_by_role("link", name="Planos", exact=True)
-    expect(planos_menu).to_be_visible()
-    planos_menu.click()
+    plans_menu = page.get_by_role("link", name="Planos", exact=True)
+    expect(plans_menu).to_be_visible()
+    plans_menu.click()
     expect(page).to_have_url(re.compile(r"#plans"))
 
     plans_heading = page.get_by_role("heading", name="Planos para todos os momentos", level=2)

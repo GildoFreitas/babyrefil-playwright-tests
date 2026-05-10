@@ -79,7 +79,7 @@ Verify the complete subscription checkout flow using valid data.
 | 5 | Fill in a valid delivery address. | The system should allow the user to continue the flow. |
 | 6 | Fill in all payment fields using the **Valid (Visa)** card test data. | The system should correctly accept the payment information. |
 | 7 | Click "Finalizar Assinatura". | The payment should be successfully approved. |
-| 8 | Verify the confirmation screen. | 1. The payment is successfully processed.<br>2. The confirmation appears in the same subscribe flow (URL stays on `/subscribe`); the screen shows the success state (e.g. heading **Assinatura confirmada!**).<br>3. The confirmation area displays the plan summary and estimated delivery date.<br>4. An order reference is shown matching the pattern **Pedido nº BR** + 13 digits (example: **BR1761410590280**). |
+| 8 | Verify the confirmation screen. | 1. The payment is successfully processed. The confirmation appears in the same subscribe flow (URL stays on `/subscribe`); the screen shows the success state (e.g. heading **Assinatura confirmada!**). The confirmation area displays the plan summary and estimated delivery date.<br>4. An order reference is shown matching the pattern **Pedido nº BR** + 13 digits (example: **BR1761410590280**). |
 
 ---
 
@@ -231,7 +231,7 @@ Verify that the system does not allow the user to continue without filling in th
 
 | Field | Value |
 | --- | --- |
-| Nome completo | Em branco |
+| Nome completo | Blank |
 | Email | joao.silva@email.com |
 | Telefone | 11999999999 |
 | Nome do bebê | Miguel |
@@ -264,7 +264,7 @@ Verify that the system does not allow the user to continue without filling in th
 | Field | Value |
 | --- | --- |
 | Nome completo | João da Silva |
-| Email | Em branco |
+| Email | Blank |
 | Telefone | 11999999999 |
 | Nome do bebê | Miguel |
 | Idade do bebê | 6 months |
@@ -297,7 +297,7 @@ Verify that the system does not allow the user to continue without filling in th
 | --- | --- |
 | Nome completo | João da Silva |
 | Email | joao.silva@email.com |
-| Telefone | Em branco |
+| Telefone | Blank |
 | Nome do bebê | Miguel |
 | Idade do bebê | 6 months |
 
@@ -330,7 +330,7 @@ Verify that the system does not allow the user to continue without filling in th
 | Nome completo | João da Silva |
 | Email | joao.silva@email.com |
 | Telefone | 11999999999 |
-| Nome do bebê | Em branco |
+| Nome do bebê | Blank |
 | Idade do bebê | 6 months |
 
 | Step | Action | Expected Result |
@@ -395,7 +395,7 @@ Verify that the system does not allow the user to continue with a blank or inval
 
 | Field | Value |
 | --- | --- |
-| CEP | Em branco ou inválido |
+| CEP | Blank or invalid |
 
 | Step | Action | Expected Result |
 | --- | --- | --- |
@@ -457,11 +457,11 @@ Verify that the system does not allow the user to continue without filling in th
 | Field | Value |
 | --- | --- |
 | CEP | 04534-011 |
-| Rua | Em branco |
-| Número | Em branco |
-| Bairro | Em branco |
-| Cidade | Em branco |
-| Estado | Em branco |
+| Rua | Blank |
+| Número | Blank |
+| Bairro | Blank |
+| Cidade | Blank |
+| Estado | Blank |
 
 | Step | Action | Expected Result |
 | --- | --- | --- |
@@ -496,9 +496,9 @@ Verify that the system does not allow the user to complete the subscription with
 
 | Field | Value |
 | --- | --- |
-| Número do cartão | Em branco ou inválido |
-| Nome impresso no cartão | Em branco |
-| Validade | Inválida |
+| Número do cartão | Blank ou Invalid |
+| Nome impresso no cartão | Blank |
+| Validade | Invalid |
 | CVV | Invalid |
 | CPF | Invalid |
 

@@ -27,20 +27,20 @@ from data.address_data import (
     VALIDATION_MSG_ESTADO_OBRIGATORIO,
     VALIDATION_MSG_NUMERO_OBRIGATORIO,
 )
-from utils.address_steps import expect_endereco_entrega_step, go_to_address_step
+from utils.address_steps import expect_delivery_address_heading, go_to_address_step
 from utils.navigation import expect_subscribe_url
-from utils.subscription_steps import click_avancar
+from utils.subscription_steps import click_next
 
 
-def test_ct015_cep_sem_buscar_e_demais_vazios_impede_avanco_e_exibe_erros(page: Page):
+def test_ct015_valid_cep_without_other_fields_blocks_progress(page: Page):
     go_to_address_step(page)
-    endereco = expect_endereco_entrega_step(page)
+    delivery_address_heading = expect_delivery_address_heading(page)
 
     cep = page.get_by_label("CEP")
     cep.fill(ADDRESS_CEP_VALIDO_AUTOCOMPLETE)
     expect(cep).to_have_value(ADDRESS_CEP_VALIDO_AUTOCOMPLETE)
 
-    click_avancar(page)
+    click_next(page)
 
     for msg in (
         VALIDATION_MSG_ENDERECO_OBRIGATORIO,
@@ -51,6 +51,6 @@ def test_ct015_cep_sem_buscar_e_demais_vazios_impede_avanco_e_exibe_erros(page: 
     ):
         expect(page.get_by_text(msg, exact=True)).to_be_visible()
 
-    expect(endereco).to_be_visible()
+    expect(delivery_address_heading).to_be_visible()
     expect(cep).to_be_visible()
     expect_subscribe_url(page)

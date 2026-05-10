@@ -10,7 +10,7 @@ Preconditions:
 
 Flake risks:
     - Age combobox: select the option before clicking Next.
-    - Monthly radio is visually hidden; handled in ``select_frequencia_mensal``.
+    - Monthly radio is visually hidden; handled in ``select_monthly_delivery_frequency``.
 """
 
 from __future__ import annotations
@@ -26,15 +26,15 @@ from data.subscription_data import (
 )
 from utils.navigation import expect_subscribe_url
 from utils.subscription_steps import (
-    click_avancar,
-    expect_dados_pessoais_step,
+    click_next,
+    expect_personal_data_step,
     go_to_personal_data_step,
 )
 
 
-def test_ct008_nome_completo_vazio_impede_avanco_e_exibe_erro(page: Page):
+def test_ct008_empty_full_name_blocks_progress(page: Page):
     go_to_personal_data_step(page)
-    dados_pessoais = expect_dados_pessoais_step(page)
+    personal_data_heading = expect_personal_data_step(page)
 
     nome_completo = page.get_by_label("Nome Completo")
 
@@ -48,9 +48,9 @@ def test_ct008_nome_completo_vazio_impede_avanco_e_exibe_erro(page: Page):
     expect(nome_completo).to_be_visible()
     expect(nome_completo).to_have_value("")
 
-    click_avancar(page)
+    click_next(page)
 
     expect(page.get_by_text(VALIDATION_MSG_NOME_COMPLETO_OBRIGATORIO, exact=True)).to_be_visible()
-    expect(dados_pessoais).to_be_visible()
+    expect(personal_data_heading).to_be_visible()
     expect(nome_completo).to_be_visible()
     expect_subscribe_url(page)

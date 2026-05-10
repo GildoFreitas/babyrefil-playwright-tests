@@ -24,15 +24,15 @@ import re
 from playwright.sync_api import Page, expect
 from utils.navigation import open_homepage
 
-def test_ct004_planos_header_navigates_to_plans_section(page: Page):
+def test_ct004_plans_header_navigation(page: Page):
 
     open_homepage(page)
 
-    planos_nav = page.get_by_role("link", name="Planos", exact=True)
-    expect(planos_nav).to_be_visible()
-    expect(planos_nav).to_be_enabled()
+    plans_nav = page.get_by_role("link", name="Planos", exact=True)
+    expect(plans_nav).to_be_visible()
+    expect(plans_nav).to_be_enabled()
 
-    planos_nav.click()
+    plans_nav.click()
 
     expect(page).to_have_url(re.compile(r"#plans"))
 

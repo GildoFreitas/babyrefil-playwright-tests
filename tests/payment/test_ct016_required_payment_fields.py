@@ -14,7 +14,7 @@ Scenarios (aligned with case data):
 
 Flake risks:
     - The word ``Pagamento`` appears in the step indicator and section title; the step checkpoint
-      uses ``Resumo do Pedido`` + ``Finalizar Assinatura`` (``expect_pagamento_step``).
+      uses ``Resumo do Pedido`` + ``Finalizar Assinatura`` (``expect_payment_step``).
     - Messages sit near fields; assertions use exact UI strings to avoid brittle DOM coupling.
 """
 
@@ -35,8 +35,8 @@ from data.payment_data import (
 )
 from utils.navigation import expect_subscribe_url
 from utils.payment_steps import (
-    click_finalizar_assinatura,
-    expect_pagamento_step,
+    click_finish_subscription,
+    expect_payment_step,
     go_to_payment_step,
 )
 
@@ -49,32 +49,32 @@ _VALIDATION_MESSAGES = (
 )
 
 
-def test_ct016_campos_em_branco_pagamento(page: Page):
+def test_ct016_empty_card_fields_show_validation(page: Page):
     go_to_payment_step(page)
-    finalizar = expect_pagamento_step(page)
+    finish_button = expect_payment_step(page)
 
-    numero_cartao = page.get_by_label("Número do Cartão")
-    nome_cartao = page.get_by_label("Nome no Cartão")
-    validade = page.get_by_label("Validade")
-    cvv = page.get_by_label("CVV")
-    cpf = page.get_by_label("CPF do Titular")
+    card_number_field = page.get_by_label("Número do Cartão")
+    cardholder_name_field = page.get_by_label("Nome no Cartão")
+    expiry_field = page.get_by_label("Validade")
+    cvv_field = page.get_by_label("CVV")
+    cpf_field = page.get_by_label("CPF do Titular")
 
-    for campo in (numero_cartao, nome_cartao, validade, cvv, cpf):
-        expect(campo).to_be_visible()
-        expect(campo).to_have_value("")
+    for field in (card_number_field, cardholder_name_field, expiry_field, cvv_field, cpf_field):
+        expect(field).to_be_visible()
+        expect(field).to_have_value("")
 
-    click_finalizar_assinatura(page)
+    click_finish_subscription(page)
 
     for msg in _VALIDATION_MESSAGES:
         expect(page.get_by_text(msg, exact=True)).to_be_visible()
 
-    expect(finalizar).to_be_visible()
+    expect(finish_button).to_be_visible()
     expect_subscribe_url(page)
 
 
-def test_ct016_campos_invalidos_pagamento(page: Page):
+def test_ct016_invalid_card_fields_show_validation(page: Page):
     go_to_payment_step(page)
-    finalizar = expect_pagamento_step(page)
+    finish_button = expect_payment_step(page)
 
     page.get_by_label("Número do Cartão").fill(PAYMENT_CARD_NUMBER_INVALIDO)
     page.get_by_label("Validade").fill(PAYMENT_VALIDADE_INVALIDA)
@@ -82,10 +82,10 @@ def test_ct016_campos_invalidos_pagamento(page: Page):
     page.get_by_label("CPF do Titular").fill(PAYMENT_CPF_INVALIDO)
     expect(page.get_by_label("Nome no Cartão")).to_have_value("")
 
-    click_finalizar_assinatura(page)
+    click_finish_subscription(page)
 
     for msg in _VALIDATION_MESSAGES:
         expect(page.get_by_text(msg, exact=True)).to_be_visible()
 
-    expect(finalizar).to_be_visible()
+    expect(finish_button).to_be_visible()
     expect_subscribe_url(page)

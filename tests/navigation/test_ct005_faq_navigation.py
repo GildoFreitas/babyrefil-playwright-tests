@@ -32,7 +32,7 @@ _FAQ_QUESTION_BUTTONS = (
     "E se eu quiser cancelar?",
 )
 
-def test_ct005_faq_header_navigates_to_faq_section(page: Page):
+def test_ct005_faq_header_navigation(page: Page):
 
     open_homepage(page)
 

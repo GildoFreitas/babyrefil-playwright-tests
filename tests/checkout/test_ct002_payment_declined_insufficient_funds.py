@@ -28,21 +28,21 @@ from data.payment_data import (
 )
 from utils.navigation import expect_subscribe_url
 from utils.payment_steps import (
-    click_finalizar_assinatura,
-    expect_pagamento_step,
-    fill_cartao,
+    click_finish_subscription,
+    expect_payment_step,
+    fill_card_form,
     go_to_payment_step,
 )
 
 
-def test_ct002_pagamento_recusado_saldo_insuficiente(page: Page):
+def test_ct002_payment_declined_insufficient_funds(page: Page):
     go_to_payment_step(page)
-    finalizar = expect_pagamento_step(page)
+    finish_button = expect_payment_step(page)
 
-    fill_cartao(page, numero=PAYMENT_CARD_MASTERCARD_SALDO_INSUFICIENTE)
-    click_finalizar_assinatura(page)
+    fill_card_form(page, card_number=PAYMENT_CARD_MASTERCARD_SALDO_INSUFICIENTE)
+    click_finish_subscription(page)
 
     expect(page.get_by_text(PAYMENT_MSG_TRANSACAO_NAO_AUTORIZADA, exact=True)).to_be_visible()
 
-    expect(finalizar).to_be_visible()
+    expect(finish_button).to_be_visible()
     expect_subscribe_url(page)
